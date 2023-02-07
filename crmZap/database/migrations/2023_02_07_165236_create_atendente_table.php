@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('atendente', function (Blueprint $table) {
             $table->id();
-            $table->string('nome', 100);
-            $table->string('email', 100);
-            $table->string('tell', 100);
+            $table->string('nome', 255);
+            $table->string('email', 255);
+            $table->string('tell', 255);
             $table->string('senha', 255);
-            $table->integer('dep');
-            $table->integer('tipo');
-            $table->integer('status')->unsigned()->default(0)->comment('0: inactive, 1: active');
+            $table->integer('dep')->nullable();
+            $table->integer('tipo')->nullable();
+            $table->integer('status')->unsigned()->default(0)->comment('0: inactive, 1: active')->nullable();
             $table->timestamps();
         });
     }
