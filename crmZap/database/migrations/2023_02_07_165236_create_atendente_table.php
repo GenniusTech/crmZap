@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nome', 100);
             $table->string('email', 100);
             $table->string('tell', 100);
-            $table->string('senha', 32);
+            $table->string('senha', 255);
             $table->integer('dep');
             $table->integer('tipo');
             $table->integer('status')->unsigned()->default(0)->comment('0: inactive, 1: active');
