@@ -12,6 +12,17 @@
                     <span class="login-form-title">
                         Criar nova conta
                     </span>
+                    <div>
+                        @if ($errors->any())
+                        <div style="background-color: rgb(227, 112, 112); color:white; text-align: center; border-radius:5px;">
+                            <ul class="alert alert-error">
+                                @foreach ($errors->all() as $error)
+                                    {{ $error }}
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div><br>
 
                     <div class="wrap-input">
                         <input class="input-login" type="name" name="nome" placeholder="Nome *" required>
