@@ -6,7 +6,7 @@ use App\Models\Atendente;
 use Illuminate\Http\Request;
 use App\Services\RegisterService;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {   
     private $registerServices;
@@ -26,8 +26,9 @@ class RegisterController extends Controller
        $validator = $request->validate([
         'email' => 'required|email',
         'senha' => 'required|min:6',
+
        ]);
-       return view('dashboard/dashboard');
+       
     }
 
     public function register(Request $request)
@@ -45,7 +46,11 @@ class RegisterController extends Controller
         ]);
 
         $data = $request->only('nome','email','tell','senha');
-        $create =Atendente::create($data);
+
+        $data['senha'] = Hash::make($data['senha']);
+
+        Atendente::create($data);
+
         return view('dashboard/dashboard');
         
     }
