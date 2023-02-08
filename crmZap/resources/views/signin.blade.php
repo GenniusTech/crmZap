@@ -14,7 +14,9 @@
                        
                         
                     </span>
-
+                    <script>
+                        
+                    </script>
                     <div>
                         @if ($errors->any())
                         <div style="background-color: rgb(227, 112, 112); color:white;text-align: center; border-radius:5px;">

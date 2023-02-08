@@ -23,12 +23,16 @@ class RegisterController extends Controller
         //return redirect('dashboard');
     }
     public function login_action(Request $request){
+        
        $validator = $request->validate([
         'email' => 'required|email',
         'senha' => 'required|min:6',
-
        ]);
-       
+
+       if( Auth::attempt($validator) )
+       {
+        return redirect()->route('dashboard');
+       }
     }
 
     public function register(Request $request)
@@ -47,7 +51,7 @@ class RegisterController extends Controller
 
         $data = $request->only('nome','email','tell','senha');
 
-        $data['senha'] = Hash::make($data['senha']);
+        $data['senha'] = bcrypt($request->senha);
 
         Atendente::create($data);
 
