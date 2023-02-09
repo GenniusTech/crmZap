@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atendente;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\RegisterService;
 use Illuminate\Support\Facades\Auth;
@@ -22,20 +23,27 @@ class RegisterController extends Controller
         return view('signin');
         //return redirect('dashboard');
     }
-  
+    public function dashboard ()
+    {
+        return view('dashboard/dashboard');
+    }
 
     public function login_action(Request $request){
         
-       $validator = $request->only(['email', 'senha']);
+        $credentials = $request->only(['email', 'senha']);
+        
+        $auth = [
+            'email'=> $credentials['email'],
+            'password' => $credentials['senha']
+        ];
 
-       if (Auth::attempt($validator)) {
-        // Autenticação bem-sucedida
-        return redirect()->intended('dashboard');
-    } else 
-    {
-        // Autenticação falha
-        return redirect()->back()->withInput()->withErrors(['email' => 'As credenciais fornecidas são inválidas.']);
-    }
+        if (Auth::guard('web')->attempt($auth)) {
+            // Autenticação bem-sucedida
+            return redirect()->intended('dashboard');
+        } else {
+            // Autenticação falha
+            return redirect()->back()->withInput()->withErrors(['email' => 'As credenciais fornecidas são inválidas.']);
+        }
     }
 
     public function register(Request $request)
@@ -47,19 +55,31 @@ class RegisterController extends Controller
     {   
         $request->validate([
             'nome' => 'required',
-            'email' => 'required|email|unique:crm_atendente',
+            'email' => 'required|email|unique:users',
             'tell' =>'required',
             'senha' => 'required|min:6'
         ]);
 
-        $data = $request->only('nome','email','tell','senha','status','tipo');
+        $dataUser = [
+            'email' => $request->get('email'),
+            'password'=> bcrypt($request->get('senha'))
+        ];
 
-        $data['senha'] = bcrypt($request->senha);
-        $data['status'] = 2;
-        $data['tipo'] = 2;
-        Atendente::create($data);
+        $userCreate = User::create($dataUser);
 
-        return view('dashboard/dashboard');
-        
+        if ($userCreate) {
+            $dataAtendente = [
+                'nome' => $request->get('nome'),
+                'tell' => $request->get('tell'),
+                'user_id' => $userCreate->id,
+                'status' => 2,
+                'tipo' => 2
+            ];
+            
+            Atendente::create($dataAtendente);
+            return view('dashboard/dashboard');
+        }
+
+        redirect()->back()->withErrors('Erro! Falha ao cadastrar o usuário!');
     }
 }

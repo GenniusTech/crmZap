@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Atendente;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,28 @@ class AttendantController extends Controller
      */
     public function index(): JsonResponse
     {
-        $attendants = Atendente::select('nome', 'email', 'tell', 'dep', 'tipo', 'status')->get();
-        return response()->json($attendants);
+        $lista = [
+            $attendants = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status','user_id')->get(),
+            $attendantsUser = User::select('email')->get()
+        ];
+        $lista = $attendants->map(function ($attendant) use ($attendantsUser) {
+            
+        $user = $attendantsUser->where('id', $attendant->id)->first();
+        
+        
+            return [
+                'nome' => $attendant->nome,
+                'tell' => $attendant->tell,
+                'dep' => $attendant->dep,
+                'tipo' => $attendant->tipo,
+                'status' => $attendant->status,
+                'email' => $user->email
+            ];
+        });
+        
+        return response()->json($lista);
+
+    
     }
 
 
