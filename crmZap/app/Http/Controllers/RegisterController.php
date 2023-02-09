@@ -6,7 +6,7 @@ use App\Models\Atendente;
 use Illuminate\Http\Request;
 use App\Services\RegisterService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 class RegisterController extends Controller
 {   
     private $registerServices;
@@ -22,17 +22,20 @@ class RegisterController extends Controller
         return view('signin');
         //return redirect('dashboard');
     }
+  
+
     public function login_action(Request $request){
         
-       $validator = $request->validate([
-        'email' => 'required|email',
-        'senha' => 'required|min:6',
-       ]);
+       $validator = $request->only(['email', 'senha']);
 
-       if( Auth::attempt($validator) )
-       {
-        return redirect()->route('dashboard');
-       }
+       if (Auth::attempt($validator)) {
+        // Autenticação bem-sucedida
+        return redirect()->intended('dashboard');
+    } else 
+    {
+        // Autenticação falha
+        return redirect()->back()->withInput()->withErrors(['email' => 'As credenciais fornecidas são inválidas.']);
+    }
     }
 
     public function register(Request $request)
@@ -44,15 +47,16 @@ class RegisterController extends Controller
     {   
         $request->validate([
             'nome' => 'required',
-            'email' => 'required|email|unique:atendente',
+            'email' => 'required|email|unique:crm_atendente',
             'tell' =>'required',
             'senha' => 'required|min:6'
         ]);
 
-        $data = $request->only('nome','email','tell','senha');
+        $data = $request->only('nome','email','tell','senha','status','tipo');
 
         $data['senha'] = bcrypt($request->senha);
-
+        $data['status'] = 2;
+        $data['tipo'] = 2;
         Atendente::create($data);
 
         return view('dashboard/dashboard');

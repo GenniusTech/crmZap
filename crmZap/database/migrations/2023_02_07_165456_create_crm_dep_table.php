@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('leads', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nome',100);
-            $table->string('email',100);
-            $table->string('tell',100);
-            $table->unsignedInteger('chat');
-            $table->unsignedInteger('id_atend');
-            $table->dateTime('data_cadastro');
+        Schema::create('crm_dep', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome', 100);
+            $table->string('segmento', 100);
+            $table->string('resp', 100);
+            $table->string('status', 100);
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leads');
+        Schema::dropIfExists('crm_dep');
     }
 };

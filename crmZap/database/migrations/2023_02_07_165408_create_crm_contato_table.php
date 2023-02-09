@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contato', function (Blueprint $table) {
+        Schema::create('crm_contato', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 100);
             $table->string('email', 100)->unique();
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contato');
+        Schema::dropIfExists('crm_contato');
     }
 };
