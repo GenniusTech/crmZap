@@ -16,29 +16,24 @@ class AttendantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(): JsonResponse
-    {
-        $lista = [
-            $attendants = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status','user_id')->get(),
-            $attendantsUser = User::select('email')->get()
-        ];
-        $lista = $attendants->map(function ($attendant) use ($attendantsUser) {
-            
-        $user = $attendantsUser->where('id', $attendant->id)->first();
-        
-        
-            return [
-                'nome' => $attendant->nome,
-                'tell' => $attendant->tell,
-                'dep' => $attendant->dep,
-                'tipo' => $attendant->tipo,
-                'status' => $attendant->status,
-                'email' => $user->email
-            ];
-        });
-        
-        return response()->json($lista);
+    {   
+        $attendants = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status','user_id')->get();
 
-    
+        $listReturn = [];
+        foreach($attendants as $atend) {
+            $user = User::select('email')->where('id', $atend->user_id)->first();
+            $newAttend = [
+                'nome' => $atend->nome,
+                'tell' => $atend->tell,
+                'dep' => $atend->dep,
+                'tipo' => $atend->tipo,
+                'status' => $atend->status,
+                'email' => $user->email,
+            ];
+            $listReturn[] = $newAttend;
+        }
+        
+        return response()->json($listReturn);
     }
 
 

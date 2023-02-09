@@ -26,10 +26,17 @@ class Atendente extends Authenticatable
         'user_id'
 
     ];
+
     protected $hidden = [
         'remember_token',
     ];
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }
