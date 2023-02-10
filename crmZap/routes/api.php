@@ -22,15 +22,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('listAtendentes', [AttendantController::class, 'listAtendentes'])->name('listAtendentes');
 Route::get('listAtendentes/{id}', [AttendantController::class, 'listAtendentesId'])->name('listAtendentesId');
-
 Route::delete('dellAtendente/{id}', [AttendantController::class, 'dellAtendente'])->name('dellAtendente');
+Route::put('upAtendente/{id}',[AttendantController::class,'upAtendente'])->name('upAtendente');
 
 Route::get('listdep', [AttendantController::class, 'dep'])->name('dep');
-
 Route::post('addDep', [AttendantController::class, 'addDep'])->name('addDep');
 
 Route::get('listContato', [AttendantController::class, 'listContato'])->name('listContato');
-
 Route::post('addContato', [AttendantController::class, 'addContato'])->name('addContato');
 
 
