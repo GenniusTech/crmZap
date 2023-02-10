@@ -20,4 +20,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('AttendantList', [AttendantController::class, 'index']);
+Route::get('listContato', [AttendantController::class, 'contato']);
+
+Route::get('listdep', [AttendantController::class, 'dep']);
+
+Route::get('addDep', [AttendantController::class, 'addDep']);
+
+Route::get('addContato', [AttendantController::class, 'index']);
+
+
+
