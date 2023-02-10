@@ -6,32 +6,141 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link rel="stylesheet" type="text/css" href=" {{ asset('home/bootstrap.min.css') }}"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="{{ asset('home/signin.css') }}"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        
+        <link href="{{ asset('dashboard/assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('dashboard/assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('dashboard/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('dashboard/assets/css/style.css') }}" rel="stylesheet">
 
-        <title>Grupo sollution - Login</title>
+        <title>Grupo sollution - Admin</title>
     </head>
 
     <body>
 
         <header>
-
+            <div class="sidebar pe-4 pb-3">
+                <nav class="navbar bg-light navbar-light">
+                    <a href="#" class="navbar-brand mx-4 mb-3">
+                        <h3 class="logo">Grupo Sollution</h3>
+                    </a>
+                    <div class="d-flex align-items-center ms-4 mb-4">
+                        <div class="position-relative">
+                            <i class="bi bi-person-circle" style="font-size: 40px;"></i>
+                            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
+                        </div>
+                        <div class="ms-3 user-text">
+                            <h6 class="mb-0 user-name">joao paulo da silva</h6>
+                            <span class="user-email">jpservice1986@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="navbar-nav w-100">
+                        <a href="#" class="nav-item nav-link active">
+                            <i class="fa fa-th me-2"></i></i>
+                         Dashboard
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="fa fa-users me-2"></i>
+                            Leads
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="fa fa-briefcase me-2"></i>
+                            Departamentos
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="fa fa-user-plus me-2"></i>
+                            Atendente
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="fa fa-chart-bar me-2"></i>
+                            Avaliações
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="fa fa-address-book me-2"></i>
+                            Contatos
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="bi bi-list-check me-2"></i>
+                            Campanhas
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="bi bi-gear-fill me-2"></i>
+                            Configurações
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="bi bi-person-circle me-2"></i>
+                            Perfil
+                        </a>
+                        <a href="#" class="nav-item nav-link">
+                            <i class="bi bi-receipt me-2"></i>
+                            Faturas
+                        </a>
+                    </div>
+                </nav>
+            </div>
         </header>
 
         <section>
-            @yield('conteudo')
+            <div class="content">
+                <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                    <a href="#" class="navbar-brand d-flex d-lg-none me-4">
+                        <h2 class="text-primary mb-0">
+                            <i class="fa fa-hashtag"></i>
+                        </h2>
+                    </a>
+                    <a href="#" class="sidebar-toggler flex-shrink-0">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <div class="d-none d-md-flex ms-4 pt-2">
+                        <h4>Dashboard</h4>
+                    </div>
+                    <div class="navbar-nav align-items-center ms-auto">
+                        <div class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="d-none d-lg-inline-flex">Suporte</span>
+                            </a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="d-none d-lg-inline-flex">Sair</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+                    @yield('conteudo')
+
+                    <div class="container-fluid pt-4 px-4">
+                        <div class="bg-light rounded-top p-4">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 text-center">
+                                    &copy;
+                                    <a href="#">Grupo Sollution</a>
+                                    , todos os direitos reservados.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         
+                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+                    <i class="bi bi-arrow-up"></i>
+                </a>
+            </div>
         </section>
 
-        <footer>
-            
-        </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('dashboard/assets/lib/easing/easing.min.js') }}"></script>
+        <script src="{{ asset('dashboard/assets/lib/waypoints/waypoints.min.js') }}"></script>
+        <script src="{{ asset('dashboard/assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('dashboard/assets/lib/tempusdominus/js/moment.min.js') }}"></script>
+        <script src="{{ asset('dashboard/assets/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
+        <script src="{{ asset('dashboard/assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+        <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
 
     </body>
 
