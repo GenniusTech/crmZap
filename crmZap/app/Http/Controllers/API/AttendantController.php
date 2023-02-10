@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Atendente;
+use App\Models\Contato;
 use App\Models\Dep;
 use App\Models\User;
 use Exception;
@@ -18,7 +19,7 @@ class AttendantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function contato(): JsonResponse
+    public function listAttendant(): JsonResponse
     {
         $attendants = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status', 'user_id')->get();
 
@@ -64,22 +65,67 @@ class AttendantController extends Controller
         return response()->json($listReturn);
     }
     public function addDep(Request $request)
-{
-    $data = [
-        'nome' => $request->input('nome'),
-        'segmento' => $request->input('segmento'),
-        'resp' => $request->input('resp'),
-        'status' => $request->input('status')
-    ];
+    {
+        $data = [
+            'nome' => $request->input('nome'),
+            'segmento' => $request->input('segmento'),
+            'resp' => $request->input('resp'),
+            'status' => $request->input('status')
+        ];
 
+        try {
+            DB::table('crm_dep')->insert($data);
+            return response()->json(['type' => true], 200);
+        } catch (Exception $e) {
+            return response()->json(['type' => false], 500);
+        }
+    }
+    public function listContato(): JsonResponse
+    {
+        $listdep = Contato::select( 'id','nome','email','tell','empresa','profissao','instagram','facebook')->get();
+
+        $listReturn = [];
+        foreach ($listdep as $contato) {
+    
+            $newDep = [
+                'id'=>$contato->id,
+                'nome' => $contato->nome,
+                'email' => $contato->email,
+                'tell' => $contato->tell,
+                'empresa' => $contato->empresa,
+                'profissao' => $contato->profissao,
+                'instagram' => $contato->instagram,
+                'facebook' => $contato->facebook,
+
+            ];
+            $listReturn[] = $newDep;
+        }
+
+        return response()->json($listReturn);
+    }
+
+    public function addContato(Request $request)
+    {
+        
+    $data = [
+        'id' => $request->input('id'),
+        'nome' => $request->input('nome'),
+        'email' => $request->input('email'),
+        'tell' => $request->input('tell'),
+        'empresa' => $request->input('empresa'),
+        'profissao' => $request->input('profissao'),
+        'instagram' => $request->input('instagram'),
+        'facebook' => $request->input('facebook'),
+        
+    ];
+    
     try {
-        DB::table('crm_dep')->insert($data);
+        DB::table('crm_contato')->insert($data);
         return response()->json(['type' => true], 200);
     } catch (Exception $e) {
         return response()->json(['type' => false], 500);
     }
-}
-
+    }
     /**
      * Store a newly created resource in storage.
      *
