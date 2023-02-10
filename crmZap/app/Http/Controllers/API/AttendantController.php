@@ -74,10 +74,14 @@ class AttendantController extends Controller
         ];
 
         try {
-            DB::table('crm_dep')->insert($data);
+            $insert = DB::table('crm_dep')->insert($data);
+            if($insert){
             return response()->json(['type' => true], 200);
+            }
+            return response()->json(['type' => false], 400);
+           
         } catch (Exception $e) {
-            return response()->json(['type' => false], 500);
+            return response()->json(['type' => false], 400);
         }
     }
     public function listContato(): JsonResponse
@@ -119,11 +123,19 @@ class AttendantController extends Controller
         
     ];
     
+   
+
     try {
-        DB::table('crm_contato')->insert($data);
-        return response()->json(['type' => true], 200);
+        $insert = DB::table('crm_contato')->insert($data);
+        if($insert){
+            return response()->json(['type' => true], 200);
+        }
+
+         return response()->json(['type' => false], 400);
+
     } catch (Exception $e) {
-        return response()->json(['type' => false], 500);
+
+        return response()->json(['type' => false], 400);
     }
     }
     /**
