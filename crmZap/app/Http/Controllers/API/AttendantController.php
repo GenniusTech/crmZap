@@ -86,6 +86,8 @@ class AttendantController extends Controller
             return response()->json($listReturn);
         }
     }
+    
+    
     public function dellAtendente($id)
     {
         $atendente = Atendente::find($id);
@@ -96,6 +98,25 @@ class AttendantController extends Controller
         }
     }
     
+    public function upAtendente($id, Request $request)
+    {
+        $atendente = Atendente::find($id);
+
+        if (!$atendente) {
+            return response()->json(['error' => 'Atendente não encontrado'], 404);
+        }
+        
+        $user = User::where('id', $atendente->user_id)->first();
+        $user->email = $request->input('email');
+        
+        $atendente->fill($request->all());
+    
+        if ($atendente->save() && $user->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
     
     public function dep(): JsonResponse
     {
