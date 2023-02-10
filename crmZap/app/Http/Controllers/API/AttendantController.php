@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Atendente;
+use App\Models\Dep;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,12 +16,12 @@ class AttendantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
-    {   
-        $attendants = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status','user_id')->get();
+    public function contato(): JsonResponse
+    {
+        $attendants = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status', 'user_id')->get();
 
         $listReturn = [];
-        foreach($attendants as $atend) {
+        foreach ($attendants as $atend) {
             $user = User::select('email')->where('id', $atend->user_id)->first();
             $newAttend = [
                 'nome' => $atend->nome,
@@ -28,11 +29,36 @@ class AttendantController extends Controller
                 'dep' => $atend->dep,
                 'tipo' => $atend->tipo,
                 'status' => $atend->status,
-                'email' => $user->email,
+                 'users' => $atend->user,
+                'email' => $user->email
+               
             ];
             $listReturn[] = $newAttend;
         }
-        
+
+        return response()->json($listReturn);
+    }
+
+    
+    public function dep(): JsonResponse
+    {
+        $listdep = Dep::select( 'nome','segmento','resp','status','id',)->get();
+
+        $listReturn = [];
+        foreach ($listdep as $dep) {
+    
+            $newDep = [
+                'id'=>$dep->id,
+                'nome' => $dep->nome,
+                'segmento' => $dep->segmento,
+                'resp' => $dep->resp,
+                'tipo' => $dep->tipo,
+                'status' => $dep->status,
+
+            ];
+            $listReturn[] = $newDep;
+        }
+
         return response()->json($listReturn);
     }
 
