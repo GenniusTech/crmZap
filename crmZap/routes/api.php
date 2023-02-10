@@ -20,7 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('AttendantList', [AttendantController::class, 'listAttendant'])->name('listAttendant');
+Route::get('listAtendentes', [AttendantController::class, 'listAtendentes'])->name('listAtendentes');
+Route::get('listAtendentes/{id}', [AttendantController::class, 'listAtendentesId'])->name('listAtendentesId');
+
+Route::delete('dellAtendente/{id}', [AttendantController::class, 'dellAtendente'])->name('dellAtendente');
 
 Route::get('listdep', [AttendantController::class, 'dep'])->name('dep');
 

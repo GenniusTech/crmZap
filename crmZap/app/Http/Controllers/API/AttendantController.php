@@ -19,7 +19,7 @@ class AttendantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function listAttendant(): JsonResponse
+    public function listAtendentes(): JsonResponse
     {
         $attendants = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status', 'user_id')->get();
 
@@ -42,6 +42,60 @@ class AttendantController extends Controller
         return response()->json($listReturn);
     }
 
+
+    public function listAtendentesId($id = null)
+    {
+        if ($id) {
+            $atendente = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status', 'user_id')
+                ->where('id', $id)
+                ->first();
+            if (!$atendente) {
+                return response()->json(['error' => 'Atendente não encontrado'], 404);
+            }
+
+            $user = User::select('email')->where('id', $atendente->user_id)->first();
+            $newAttend = [
+                'nome' => $atendente->nome,
+                'tell' => $atendente->tell,
+                'dep' => $atendente->dep,
+                'tipo' => $atendente->tipo,
+                'status' => $atendente->status,
+                'user' => $atendente->user,
+                'email' => $user->email
+            ];
+
+            return response()->json($newAttend);
+        } else {
+            $attendants = Atendente::select('nome', 'tell', 'dep', 'tipo', 'status', 'user_id')->get();
+
+            $listReturn = [];
+            foreach ($attendants as $atend) {
+                $user = User::select('email')->where('id', $atend->user_id)->first();
+                $newAttend = [
+                    'nome' => $atend->nome,
+                    'tell' => $atend->tell,
+                    'dep' => $atend->dep,
+                    'tipo' => $atend->tipo,
+                    'status' => $atend->status,
+                    'user' => $atend->user,
+                    'email' => $user->email
+                ];
+                $listReturn[] = $newAttend;
+            }
+
+            return response()->json($listReturn);
+        }
+    }
+    public function dellAtendente($id)
+    {
+        $atendente = Atendente::find($id);
+        if ($atendente->delete()) {
+            return response()->json(['type' => 'success']);
+        } else {
+            return response()->json(['type' => 'error']);
+        }
+    }
+    
     
     public function dep(): JsonResponse
     {
@@ -64,6 +118,8 @@ class AttendantController extends Controller
 
         return response()->json($listReturn);
     }
+
+
     public function addDep(Request $request)
     {
         $data = [
