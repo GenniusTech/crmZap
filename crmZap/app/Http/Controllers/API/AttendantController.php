@@ -184,6 +184,47 @@ class AttendantController extends Controller
 
         return response()->json($listReturn);
     }
+    public function listContatoId($id = null)
+    {
+        if ($id) {
+            $contato = Contato::select('nome','email', 'tell', 'empresa', 'profissão', 'instagram', 'facebook')
+                ->where('id', $id)
+                ->first();
+            if (!$contato) {
+                return response()->json(['error' => 'Atendente não encontrado'], 404);
+            }
+
+            $newAttend = [
+                'nome' => $contato->nome,
+                'email' => $contato->email,
+                'tell' => $contato->tell,
+                'empresa' => $contato->empresa,
+                'profissão' => $contato->profissão,
+                'instagram' => $contato->instagram,
+                'facebook' => $contato->facebook,
+            ];
+
+            return response()->json($newAttend);
+        } else {
+            $contato = Atendente::select('nome','email', 'tell', 'empresa', 'profissão', 'instagram', 'facebook')->get();
+
+            $listReturn = [];
+            foreach ($contato as $contato) {
+                $newAttend = [
+                    'nome' => $contato->nome,
+                    'email' => $contato->email,
+                    'tell' => $contato->tell,
+                    'empresa' => $contato->empresa,
+                    'profissão' => $contato->profissão,
+                    'instagram' => $contato->instagram,
+                    'facebook' => $contato->facebook,
+                ];
+                $listReturn[] = $newAttend;
+            }
+
+            return response()->json($listReturn);
+        }
+    }
 
     public function addContato(Request $request)
     {
@@ -210,10 +251,23 @@ class AttendantController extends Controller
 
          return response()->json(['type' => false], 400);
 
-    } catch (Exception $e) {
+        } catch (Exception $e) {
 
-        return response()->json(['type' => false], 400);
+            return response()->json(['type' => false], 400);
+        }
     }
+
+
+
+    public function deleteContato($id)
+    {
+        $contato = Contato::find($id);
+        if ($contato->delete()) {
+            return response()->json(['type' => 'success']);
+        } else {
+            return response()->json(['type' => 'error']);
+        }
+        
     }
     /**
      * Store a newly created resource in storage.
