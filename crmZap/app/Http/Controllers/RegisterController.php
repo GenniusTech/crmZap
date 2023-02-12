@@ -31,7 +31,6 @@ class RegisterController extends Controller
     public function login_action(Request $request){
         
         $credentials = $request->only(['email', 'senha']);
-        
         $auth = [
             'email'=> $credentials['email'],
             'password' => $credentials['senha']
