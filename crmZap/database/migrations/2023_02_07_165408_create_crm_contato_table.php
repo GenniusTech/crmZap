@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('crm_contato', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('nome', 100);
+            $table->string('email', 100)->unique();
+            $table->string('tell', 100);
+            $table->string('empresa', 100);
+            $table->string('profissao',100);
+            $table->string('instagram',100);
+            $table->string('facebook',100);
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('crm_contato');
     }
 };
