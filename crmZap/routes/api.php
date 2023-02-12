@@ -20,13 +20,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('listContato', [AttendantController::class, 'contato']);
+Route::get('listAtendentes', [AttendantController::class, 'listAtendentes'])->name('listAtendentes');
+Route::get('listAtendentes/{id}', [AttendantController::class, 'listAtendentesId'])->name('listAtendentesId');
+Route::put('upAtendente/{id}',[AttendantController::class,'upAtendente'])->name('upAtendente');
+Route::delete('dellAtendente/{id}', [AttendantController::class, 'dellAtendente'])->name('dellAtendente');
 
-Route::get('listdep', [AttendantController::class, 'dep']);
+Route::get('listdep', [AttendantController::class, 'dep'])->name('dep');
+Route::post('addDep', [AttendantController::class, 'addDep'])->name('addDep');
 
-Route::get('addDep', [AttendantController::class, 'addDep']);
-
-Route::get('addContato', [AttendantController::class, 'index']);
+Route::get('listContato', [AttendantController::class, 'listContato'])->name('listContato');
+Route::get('listContato/{id}', [AttendantController::class, 'listContatoId'])->name('listContatoId');
+Route::post('addContato', [AttendantController::class, 'addContato'])->name('addContato');
+Route::delete('deleteContato/{id}', [AttendantController::class, 'deleteContato'])->name('deleteContato');
 
 
 
