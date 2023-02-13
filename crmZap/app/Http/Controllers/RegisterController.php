@@ -23,7 +23,7 @@ class RegisterController extends Controller
     {
         return view('signin');
        
-    }
+     }
     public function dashboard ()
     {
         $user = Auth::user();
@@ -32,7 +32,7 @@ class RegisterController extends Controller
         $atendente = Atendente::where('user_id', Auth::user()->id)->first();
         if ($atendente) {
             
-         }
+        }
         
         return view('dashboard/dashboard');
     }
