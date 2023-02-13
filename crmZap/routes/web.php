@@ -22,4 +22,8 @@ Route::post('/', [RegisterController::class, 'login_action'])->name('login_actio
 Route::get('/signup', [RegisterController::class, 'register'])->name('register');
 Route::post('/signup', [RegisterController::class, 'register_action'])->name('register_action');
 
-Route::get('/dashboard', [RegisterController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/painel', [RegisterController::class, 'dashboard'])->name('dashboard');
+    Route::get('/logout', [RegisterController::class, 'logout'])->name('logout');
+});
+
