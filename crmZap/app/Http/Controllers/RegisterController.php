@@ -16,7 +16,7 @@ class RegisterController extends Controller
     {
         $this->registerServices = $classRegister;
 
-       
+       $teste ='teste';
     }
 
     public function index(Request $request)
@@ -26,7 +26,7 @@ class RegisterController extends Controller
      }
     public function dashboard ()
     {
-        $user = Auth::user();
+         $user = Auth::user();
         $att = User::where('id',$user->id)->with('atendente')->get();
         
         $atendente = Atendente::where('user_id', Auth::user()->id)->first();
