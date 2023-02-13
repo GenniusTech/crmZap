@@ -19,7 +19,7 @@
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <!-- Stylesheet -->
         <link href="assets/css/style.css" rel="stylesheet">
-        <title>Grupo Sollution - Contatos</title>
+        <title>Grupo Sollution - Leads</title>
     </head>
     <body>
         <div class="sidebar pe-4 pb-3">
@@ -96,7 +96,7 @@
                 <i class="fa fa-bars"></i>
             </a>
             <div class="d-none d-md-flex ms-4 pt-2">
-                <h4>Contatos</h4>
+                <h4>Leads</h4>
             </div>
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item">
@@ -112,20 +112,19 @@
             </div>
         </nav>
         <!-- Navbar End -->
-        <!-- Tabela Contatos -->
+        <!-- Tabela Leads -->
         <div class="col-12">
             <div class="bg-light rounded h-100 p-4">
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <h5>Contatos</h5>
+                    <h5>Leads</h5>
                     <div class="search_chat">
                         <div>
                             <input type="text" placeholder="procurar contato">
                             <i class="bi bi-search"></i>
                         </div>
                     </div>
-                    <i class="bi bi-search"></i>
-                    <i class="bi bi-search"></i>
-                    <i class="bi bi-search"></i>
+                    <i class="fa fa-upload pe-2 fs-5 text"></i>
+                    <i class="fa fa-download fs-5 text"></i>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -135,6 +134,8 @@
                                 <th scope="col">Nome</th>
                                 <th scope="col">E-mail</th>
                                 <th scope="col">Telefone</th>
+                                <th scope="col">Origem</th>
+                                <th scope="col">ChatId</th>
                                 <th scope="col">Dt. inclusão</th>
                                 <th scope="col">Id</th>
                             </tr>
@@ -145,6 +146,8 @@
                                 <td>Ana Júlia</td>
                                 <td>exemploemail@gmail.com</td>
                                 <td>84 90000-0000</td>
+                                <td>Whatsapp</td>
+                                <td>48161654</td>
                                 <td>10/02/2023 14:19</td>
                                 <td>1</td>
                             </tr>
@@ -153,6 +156,8 @@
                                 <td>Larissa</td>
                                 <td>exemploemail@gmail.com</td>
                                 <td>84 90000-0000</td>
+                                <td>Whatsapp</td>
+                                <td>48161654</td>
                                 <td>10/02/2023 14:19</td>
                                 <td>2</td>
                             </tr>
@@ -161,6 +166,8 @@
                                 <td>Fred</td>
                                 <td>exemploemail@gmail.com</td>
                                 <td>84 90000-0000</td>
+                                <td>Whatsapp</td>
+                                <td>48161654</td>
                                 <td>10/02/2023 14:19</td>
                                 <td>3</td>
                             </tr>
@@ -169,6 +176,8 @@
                                 <td>Arthur</td>
                                 <td>exemploemail@gmail.com</td>
                                 <td>84 90000-0000</td>
+                                <td>Whatsapp</td>
+                                <td>48161654</td>
                                 <td>10/02/2023 14:19</td>
                                 <td>4</td>
                             </tr>
@@ -177,6 +186,8 @@
                                 <td>Alice</td>
                                 <td>exemploemail@gmail.com</td>
                                 <td>84 90000-0000</td>
+                                <td>Whatsapp</td>
+                                <td>48161654</td>
                                 <td>10/02/2023 14:19</td>
                                 <td>5</td>
                             </tr>
@@ -185,6 +196,8 @@
                                 <td>Lucas</td>
                                 <td>exemploemail@gmail.com</td>
                                 <td>84 90000-0000</td>
+                                <td>Whatsapp</td>
+                                <td>48161654</td>
                                 <td>10/02/2023 14:19</td>
                                 <td>6</td>
                             </tr>
@@ -193,6 +206,8 @@
                                 <td>Yasmin</td>
                                 <td>exemploemail@gmail.com</td>
                                 <td>84 90000-0000</td>
+                                <td>Whatsapp</td>
+                                <td>48161654</td>
                                 <td>10/02/2023 14:19</td>
                                 <td>7</td>
                             </tr>
@@ -201,6 +216,8 @@
                                 <td>Juliana</td>
                                 <td>exemploemail@gmail.com</td>
                                 <td>84 90000-0000</td>
+                                <td>Whatsapp</td>
+                                <td>48161654</td>
                                 <td>10/02/2023 14:19</td>
                                 <td>8</td>
                             </tr>
@@ -209,50 +226,33 @@
                 </div>
             </div>
         </div>
-        <!-- Tabela Contatos -->
-        <!-- Modal Criar novo Contato -->
-        <div id="modal-novo-contato" class="modal-setor">
+        <!-- Tabela Leads -->
+        <!-- Modal Criar novo Lead -->
+        <div id="modal-novo-lead" class="modal-setor">
             <div class="modal-content-setor">
-                <h5>Criar novo contato</h5>
+                <h5>Criar Lead</h5>
                 <hr>
                 <form>
-                    <i class="bi bi-person-circle" style="font-size: 50px;"></i>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Primeiro nome"
-                            >
-                        </div>
-                        <div class="col">
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Último nome"
-                            >
-                        </div>
-                    </div>
-
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input
-                                type="email"
-                                class="form-control"
-                                placeholder="E-mail"
-                            >
+                            <input type="text" class="form-control" placeholder="Nome">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Telefone"
-                            >
+                            <input type="email" class="form-control" placeholder="E-mail">
                         </div>
                     </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" placeholder="Telefone">
+                        </div>
+                    </div>
+                    <label for="formFile" class="form-label">Selecione a origem:</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>WhatsApp</option>
+                    </select>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-4">
                         <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
                         <button class="btn btn-success" type="button">Salvar</button>
                     </div>
@@ -260,8 +260,7 @@
                 <a href="#" class="modal__close">&times;</a>
             </div>
         </div>
-        <!-- Modal Criar novo Contato -->
-        
+        <!-- Modal Criar novo Lead -->
         <!-- Footer Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light rounded-top p-4">
@@ -278,7 +277,7 @@
     </div>
     <!-- Content End -->
     <!-- Back to Top -->
-    <a href="#modal-novo-contato" class="btn btn-lg btn-lg-square back-to-top">
+    <a href="#modal-novo-lead" class="btn btn-lg btn-lg-square back-to-top">
         <i class="fa fa-plus"></i>
     </a>
 </div>
