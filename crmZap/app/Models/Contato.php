@@ -19,7 +19,8 @@ class Contato extends Model
         'empresa',
         'profissao',
         'instagram',
-        'facebook'
+        'facebook',
+        'created_at'
         
 
     ];

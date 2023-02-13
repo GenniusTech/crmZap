@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\RegisterService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {   
@@ -16,25 +17,21 @@ class RegisterController extends Controller
     {
         $this->registerServices = $classRegister;
 
-       $teste ='00';
+       
     }
 
     public function index(Request $request)
     {
         return view('signin');
        
-     }
+    }
     public function dashboard ()
     {
-         $user = Auth::user();
-        $att = User::where('id',$user->id)->with('atendente')->get();
         
-        $atendente = Atendente::where('user_id', Auth::user()->id)->first();
-        if ($atendente) {
-            
-        }
+        $countat = DB::table('crm_atendente')->count();
+        $count = DB::table('crm_contato')->count();
         
-        return view('dashboard/dashboard');
+        return view('dashboard/dashboard', ['count' => $count], ['countat' => $countat]);
     }
 
     public function login_action(Request $request){
@@ -85,7 +82,7 @@ class RegisterController extends Controller
             ];
             
             Atendente::create($dataAtendente);
-            return view('dashboard/dashboard');
+            return redirect()->route('dashboard');
         }
 
         redirect()->back()->withErrors('Erro! Falha ao cadastrar o usuário!');
@@ -94,6 +91,6 @@ class RegisterController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->route('login');//
     }
 }
