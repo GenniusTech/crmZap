@@ -23,7 +23,7 @@ Route::get('/signup', [RegisterController::class, 'register'])->name('register')
 Route::post('/signup', [RegisterController::class, 'register_action'])->name('register_action');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/Dashboard', [RegisterController::class, 'dashboard'])->name('dashboard');
+    Route::get('/painel', [RegisterController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [RegisterController::class, 'logout'])->name('logout');
 });
 
