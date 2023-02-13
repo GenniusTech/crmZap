@@ -189,7 +189,7 @@ class AttendantController extends Controller
     public function listContatoId($id = null)
     {
         if ($id) {
-            $contato = Contato::select('nome', 'email', 'tell', 'empresa', 'profissão', 'instagram', 'facebook')
+            $contato = Contato::select('nome', 'email', 'tell', 'empresa', 'profissao', 'instagram', 'facebook')
                 ->where('id', $id)
                 ->first();
             if (!$contato) {
@@ -208,7 +208,7 @@ class AttendantController extends Controller
 
             return response()->json($newAttend);
         } else {
-            $contato = Atendente::select('nome', 'email', 'tell', 'empresa', 'profissão', 'instagram', 'facebook')->get();
+            $contato = Atendente::select('nome', 'email', 'tell', 'empresa', 'profissao', 'instagram', 'facebook')->get();
 
             $listReturn = [];
             foreach ($contato as $contato) {
