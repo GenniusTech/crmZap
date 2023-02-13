@@ -16,7 +16,7 @@ class RegisterController extends Controller
     {
         $this->registerServices = $classRegister;
 
-       $teste ='teste';
+       $teste ='00';
     }
 
     public function index(Request $request)
