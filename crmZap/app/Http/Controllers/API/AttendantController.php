@@ -89,19 +89,29 @@ class AttendantController extends Controller
     }
 
 
-    public function dellAtendente($user_id)
+    public function dellAtendente($id)
     {
-        $atendente = Atendente::where('user_id', $user_id)->first();
-        if ($atendente) {
-            if ($atendente->delete()) {
-                return response()->json(['type' => 'success']);
+        $user = User::find($id);
+        if ($user) {
+            $atendente = Atendente::where('user_id', $id)->first();
+            if ($atendente) {
+                if ($atendente->delete() && $user->delete()) {
+                    return response()->json(['type' => 'success']);
+                } else {
+                    return response()->json(['type' => 'error']);
+                }
             } else {
-                return response()->json(['type' => 'error']);
+                if ($user->delete()) {
+                    return response()->json(['type' => 'success']);
+                } else {
+                    return response()->json(['type' => 'error']);
+                }
             }
         } else {
-            return response()->json(['type' => 'error', 'message' => 'Atendente não encontrado com esse user_id']);
+            return response()->json(['type' => 'error', 'message' => 'Usuário não encontrado com esse id']);
         }
     }
+    
 
     public function upAtendente($id, Request $request)
     {
