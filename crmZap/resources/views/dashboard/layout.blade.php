@@ -105,7 +105,7 @@
                             </a>
                         </div>
                         <div class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('logout') }}" class="nav-link">
                                 <span class="d-none d-lg-inline-flex">Sair</span>
                             </a>
                         </div>

@@ -15,16 +15,25 @@ class RegisterController extends Controller
     public function __construct(RegisterService $classRegister)
     {
         $this->registerServices = $classRegister;
+
        
     }
 
     public function index(Request $request)
     {
         return view('signin');
-        //return redirect('dashboard');
+       
     }
     public function dashboard ()
     {
+        $user = Auth::user();
+        $att = User::where('id',$user->id)->with('atendente')->get();
+        
+        $atendente = Atendente::where('user_id', Auth::user()->id)->first();
+        if ($atendente) {
+            
+        }
+        
         return view('dashboard/dashboard');
     }
 
@@ -38,7 +47,7 @@ class RegisterController extends Controller
 
         if (Auth::guard('web')->attempt($auth)) {
             // Autenticação bem-sucedida
-            return redirect()->intended('dashboard');
+            return redirect()->route('dashboard');
         } else {
             // Autenticação falha
             return redirect()->back()->withInput()->withErrors(['email' => 'As credenciais fornecidas são inválidas.']);
@@ -80,5 +89,11 @@ class RegisterController extends Controller
         }
 
         redirect()->back()->withErrors('Erro! Falha ao cadastrar o usuário!');
+    }
+    
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }
