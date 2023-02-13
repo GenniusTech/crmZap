@@ -32,7 +32,7 @@ class RegisterController extends Controller
         $atendente = Atendente::where('user_id', Auth::user()->id)->first();
         if ($atendente) {
             
-        }
+         }
         
         return view('dashboard/dashboard');
     }
