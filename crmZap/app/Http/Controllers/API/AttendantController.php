@@ -89,13 +89,17 @@ class AttendantController extends Controller
     }
 
 
-    public function dellAtendente($id)
+    public function dellAtendente($user_id)
     {
-        $atendente = Atendente::find($id);
-        if ($atendente->delete()) {
-            return response()->json(['type' => 'success']);
+        $atendente = Atendente::where('user_id', $user_id)->first();
+        if ($atendente) {
+            if ($atendente->delete()) {
+                return response()->json(['type' => 'success']);
+            } else {
+                return response()->json(['type' => 'error']);
+            }
         } else {
-            return response()->json(['type' => 'error']);
+            return response()->json(['type' => 'error', 'message' => 'Atendente não encontrado com esse user_id']);
         }
     }
 
@@ -189,7 +193,7 @@ class AttendantController extends Controller
     public function listContatoId($id = null)
     {
         if ($id) {
-            $contato = Contato::select('nome', 'email', 'tell', 'empresa', 'profissão', 'instagram', 'facebook')
+            $contato = Contato::select('nome', 'email', 'tell', 'empresa', 'profissao', 'instagram', 'facebook')
                 ->where('id', $id)
                 ->first();
             if (!$contato) {
@@ -208,7 +212,7 @@ class AttendantController extends Controller
 
             return response()->json($newAttend);
         } else {
-            $contato = Atendente::select('nome', 'email', 'tell', 'empresa', 'profissão', 'instagram', 'facebook')->get();
+            $contato = Atendente::select('nome', 'email', 'tell', 'empresa', 'profissao', 'instagram', 'facebook')->get();
 
             $listReturn = [];
             foreach ($contato as $contato) {
