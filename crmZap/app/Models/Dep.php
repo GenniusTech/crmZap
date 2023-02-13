@@ -17,6 +17,7 @@ class Dep extends Model
         'segmento',
         'resp',
         'status',
+        'created_at'
         
 
     ];
