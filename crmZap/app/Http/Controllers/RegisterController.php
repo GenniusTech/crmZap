@@ -44,7 +44,7 @@ class RegisterController extends Controller
 
         if (Auth::guard('web')->attempt($auth)) {
             // Autenticação bem-sucedida
-            return redirect()->route('dashboard/dashboard');
+            return redirect()->route('dashboard');
         } else {
             // Autenticação falha
             return redirect()->back()->withInput()->withErrors(['email' => 'As credenciais fornecidas são inválidas.']);
@@ -82,7 +82,7 @@ class RegisterController extends Controller
             ];
             
             Atendente::create($dataAtendente);
-            return view('dashboard/dashboard');
+            return redirect()->route('dashboard');
         }
 
         redirect()->back()->withErrors('Erro! Falha ao cadastrar o usuário!');
