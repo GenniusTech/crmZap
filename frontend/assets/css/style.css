@@ -23,6 +23,14 @@ h6 {
   font-family: 'Poppins', sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: #0a082f;
+}
+
+a:hover {
+  color: #9ab251;
+}
 
 /*** Button ***/
 .btn {
@@ -443,4 +451,35 @@ h6 {
   left: 30px;
   top: 14px;
   font-size: 1.2em;
+}
+
+/* Faturas */
+.valor-plano h6 {
+  font-size: 30px;
+}
+
+.valor-plano small {
+  font-size: 15px;
+  color: #585858;
+  font-weight: 400;
+}
+
+.list-plano {
+  list-style-type: circle;
+}
+
+.info-plano span {
+  color: #9ab251;
+}
+
+.info-plano .btn-plano {
+  background-color: #0a082f;
+  border: #0a082f;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.info-plano .btn-plano:hover {
+  background-color: #9ab251;
+  border: #9ab251;
 }
