@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atendente;
+use App\Models\Contato;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,20 +16,23 @@ class DashController extends Controller
         $user = Auth::user();
         $atendente = Atendente::where('user_id',$user->id)->first();
         $contactsCount = 0 ;
-    
+        $tema = 'Atendente';
         if ($atendente->tipo === 1) {
-
-           $atendentes = Atendente::where('tipo','1')->all();
-           $contactsCount = $atendentes->contatos()->count();
+            $contactsCount = DB::table('crm_contato')->count();
+            $tema = 'Atendentes';
 
         } else if ($atendente->tipo === 2) {
 
             $contactsCount = $atendente->contatos()->count();
-            
+            $tema = 'Equipe';
         }
         $count_atendente = DB::table('crm_atendente')->count();
         
-        return view('dashboard/dashboard',['contactsCount' => $contactsCount], ['count_atendente' => $count_atendente]);
+        return view('dashboard/dashboard',
+            ['contactsCount' => $contactsCount, 
+            'count_atendente' => $count_atendente,
+            'tema' => $tema]
+        );
     }
 
     public function carousel_atendente (Request $request)

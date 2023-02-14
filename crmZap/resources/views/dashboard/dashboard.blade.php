@@ -16,7 +16,7 @@
                     <i class="fa fa-users fa-3x"></i>
                     <div class="ms-3">
                         <h6 class="mb-0">{{ $count_atendente }}</h6>
-                        <p class="mb-2">Atendentes</p>
+                        <p class="mb-2"> {{ $tema }} </p>
                     </div>
                 </div>
             </div>
