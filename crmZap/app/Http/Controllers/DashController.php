@@ -16,14 +16,17 @@ class DashController extends Controller
         $user = Auth::user();
         $atendente = Atendente::where('user_id',$user->id)->first();
         $contactsCount = 0 ;
+        $leadsCount = 0 ;
         $tema = 'Atendente';
         if ($atendente->tipo === 1) {
             $contactsCount = DB::table('crm_contato')->count();
+            $leadsCount = DB::table('crm_leads')->count();
             $tema = 'Atendentes';
 
         } else if ($atendente->tipo === 2) {
 
             $contactsCount = $atendente->contatos()->count();
+            $leadsCount = $atendente->leads()->count();
             $tema = 'Equipe';
         }
         $count_atendente = DB::table('crm_atendente')->count();
@@ -31,7 +34,8 @@ class DashController extends Controller
         return view('dashboard/dashboard',
             ['contactsCount' => $contactsCount, 
             'count_atendente' => $count_atendente,
-            'tema' => $tema]
+            'tema' => $tema,
+            'leadsCount' => $leadsCount]
         );
     }
 
