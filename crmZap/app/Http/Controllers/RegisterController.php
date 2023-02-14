@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atendente;
+use App\Models\Contato;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\RegisterService;
@@ -25,13 +26,26 @@ class RegisterController extends Controller
         return view('signin');
        
     }
-    public function dashboard ()
+    public function dashboard (Request $request)
     {
         
-        $countat = DB::table('crm_atendente')->count();
-        $count = DB::table('crm_contato')->count();
+        $user = Auth::user();
+        $atendente = Atendente::where('user_id',$user->id)->first();
+        $contactsCount = 0 ;
+    
+        if ($atendente->tipo === 1) {
+
+           $atendentes = Atendente::where('tipo','1')->all();
+           $contactsCount = $atendentes->contatos()->count();
+
+        } else if ($atendente->tipo === 2) {
+
+            $contactsCount = $atendente->contatos()->count();
+            
+        }
+        $count_atendente = DB::table('crm_atendente')->count();
         
-        return view('dashboard/dashboard', ['count' => $count], ['countat' => $countat]);
+        return view('dashboard/dashboard',['contactsCount' => $contactsCount], ['count_atendente' => $count_atendente]);
     }
 
     public function login_action(Request $request){
@@ -82,7 +96,7 @@ class RegisterController extends Controller
             ];
             
             Atendente::create($dataAtendente);
-            return redirect()->route('dashboard');
+            return view('dashboard/dashboard');
         }
 
         redirect()->back()->withErrors('Erro! Falha ao cadastrar o usuário!');

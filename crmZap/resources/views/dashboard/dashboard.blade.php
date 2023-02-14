@@ -6,7 +6,7 @@
                 <div class="card-leads rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-address-book fa-3x"></i>
                     <div class="ms-3">
-                        <h6 class="mb-0">{{ $count }}</h6>
+                        <h6 class="mb-0">{{ $contactsCount }}</h6>
                         <p class="mb-2">Contatos</p>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
                 <div class="card-leads rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-users fa-3x"></i>
                     <div class="ms-3">
-                        <h6 class="mb-0">{{ $countat }}</h6>
+                        <h6 class="mb-0">{{ $count_atendente }}</h6>
                         <p class="mb-2">Atendentes</p>
                     </div>
                 </div>

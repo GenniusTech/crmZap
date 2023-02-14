@@ -20,9 +20,8 @@ class Contato extends Model
         'profissao',
         'instagram',
         'facebook',
+        'id_atendente',
         'created_at'
-        
-
     ];
 
     protected $hidden = [

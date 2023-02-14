@@ -18,8 +18,6 @@ class Dep extends Model
         'resp',
         'status',
         'created_at'
-        
-
     ];
 
     protected $hidden = [
