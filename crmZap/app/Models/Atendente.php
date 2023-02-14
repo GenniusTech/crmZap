@@ -45,7 +45,7 @@ class Atendente extends Authenticatable
         return $this->hasMany(Contato::class);
     }
 
-    public function leads ()
+    public function leads()
     {
         return $this->hasMany(Lead::class);
     }

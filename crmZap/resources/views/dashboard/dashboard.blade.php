@@ -47,47 +47,18 @@
                 <h5 class="mb-4">Atendentes</h5>
                 <a href="#" class="link-atendente">Ir para atendentes<i class="fa fa-arrow-right ps-1"></i></a>
             </div>
+            
             <div class="owl-carousel atendente-carousel">
+            @foreach ($atendentes as $atendente)
                 <div class="atendente-item text-center">
                     <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">Cristina</h5>
+                    <h5 class="mb-1">{{ $atendente->nome }}</h5>
                     <p class="mb-0">
                         <i class="fa fa-star"></i>
-                        21 conversas em andamento
+                        {{ $atendente->leads->count() }} conversas em andamento
                     </p>
                 </div>
-                <div class="atendente-item text-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">philipe</h5>
-                    <p class="mb-0">
-                        <i class="fa fa-star"></i>
-                        74 conversas em andamento
-                    </p>
-                </div>
-                <div class="atendente-item text-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">jorlan alves</h5>
-                    <p class="mb-0">
-                        <i class="fa fa-star"></i>
-                        10 conversas em andamento
-                    </p>
-                </div>
-                <div class="atendente-item text-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">ana cardoso</h5>
-                    <p class="mb-0">
-                        <i class="fa fa-star"></i>
-                        13 conversas em andamento
-                    </p>
-                </div>
-                <div class="atendente-item text-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">aline lavinder</h5>
-                    <p class="mb-0">
-                        <i class="fa fa-star"></i>
-                        26 conversas em andamento
-                    </p>
-                </div>
+            @endforeach
             </div>
         </div>
     </div>
