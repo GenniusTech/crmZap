@@ -14,11 +14,10 @@ class RegisterController extends Controller
 {   
     private $registerServices;
 
-    public function __construct(RegisterService $classRegister)
+    public function __construct(DashController $dashController )
     {
-        $this->registerServices = $classRegister;
 
-       
+      
     }
 
     public function index(Request $request)

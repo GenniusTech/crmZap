@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nome',100);
             $table->string('email',100);
             $table->string('tell',100);
+            $table->string('status',100);
             $table->unsignedInteger('chat');
             $table->unsignedInteger('atendente_id');
             $table->dateTime('data_cadastro');

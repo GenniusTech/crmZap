@@ -33,14 +33,14 @@
                 <div class="card-leads rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-comment-slash fa-3x"></i>
                     <div class="ms-3">
-                        <h6 class="mb-0">70</h6>
+                        <h6 class="mb-0">{{ $leadsStatusCount }}</h6>
                         <p class="mb-2">Conversas Finalizadas</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
+    @if ($tipo === 1)
     <div class="col-sm-12 col-xl-12">
         <div class="bg-light rounded h-100 p-4">
             <div class="d-flex align-items-center justify-content-between mb-2">
@@ -91,6 +91,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="col-sm-12 col-xl-12">
         <div class="bg-light rounded h-100 p-4">
             <div class="d-flex align-items-center justify-content-between mb-2">
