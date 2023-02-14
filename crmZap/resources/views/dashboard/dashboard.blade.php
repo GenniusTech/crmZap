@@ -24,7 +24,7 @@
                 <div class="card-leads rounded d-flex align-items-center justify-content-between p-4">
                     <i class="fa fa-comment-dots fa-3x"></i>
                     <div class="ms-3">
-                        <h6 class="mb-0">404</h6>
+                        <h6 class="mb-0"></h6>
                         <p class="mb-2">Conversas em andamento</p>
                     </div>
                 </div>
