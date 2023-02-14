@@ -75,7 +75,7 @@ class RegisterController extends Controller
             ];
             
             Atendente::create($dataAtendente);
-            return view('dashboard/dashboard');
+            return redirect()->route('dashboard');
         }
 
         redirect()->back()->withErrors('Erro! Falha ao cadastrar o usuário!');
