@@ -70,46 +70,17 @@
                 <a href="#" class="link-atendente">Ir para Whatsapp<i class="fa fa-arrow-right ps-1"></i></a>
             </div>
             <div class="owl-carousel whatsapp-carousel">
+                @foreach ($contatos as $contato)
                 <div class="whatsapp-item text-center">
                     <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">Limpa nome indenização</h5>
+                    <h5 class="mb-1">{{ $contato->nome }}</h5>
                     <p class="mb-0">
                         <i class="bi bi-phone"></i>
                         Conectado
                     </p>
                 </div>
-                <div class="whatsapp-item text-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">Limpa nome indenização</h5>
-                    <p class="mb-0">
-                        <i class="bi bi-phone"></i>
-                        Conectado
-                    </p>
-                </div>
-                <div class="whatsapp-item text-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">Limpa nome indenização</h5>
-                    <p class="mb-0">
-                        <i class="bi bi-phone"></i>
-                        Conectado
-                    </p>
-                </div>
-                <div class="whatsapp-item text-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">Limpa nome indenização</h5>
-                    <p class="mb-0">
-                        <i class="bi bi-phone"></i>
-                        Conectado
-                    </p>
-                </div>
-                <div class="whatsapp-item text-center">
-                    <i class="bi bi-person-circle"></i>
-                    <h5 class="mb-1">Limpa nome indenização</h5>
-                    <p class="mb-0">
-                        <i class="bi bi-phone"></i>
-                        Conectado
-                    </p>
-                </div>
+               @endforeach
+
             </div>
         </div>
     </div>
