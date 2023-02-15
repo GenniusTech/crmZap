@@ -179,7 +179,7 @@ class AttendantController extends Controller
     }
     public function listContato(): JsonResponse
     {
-        $listdep = Contato::select('id', 'nome', 'email', 'tell', 'empresa', 'profissao', 'instagram', 'facebook')->get();
+        $listdep = Contato::select('id', 'nome', 'email', 'tell', 'empresa', 'profissao', 'instagram', 'facebook', 'created_at')->get();
 
         $listReturn = [];
         foreach ($listdep as $contato) {
@@ -193,7 +193,7 @@ class AttendantController extends Controller
                 'profissao' => $contato->profissao,
                 'instagram' => $contato->instagram,
                 'facebook' => $contato->facebook,
-
+                'created_at' => date($contato->created_at),
             ];
             $listReturn[] = $newDep;
         }
@@ -254,11 +254,10 @@ class AttendantController extends Controller
             'profissao' => $request->input('profissao'),
             'instagram' => $request->input('instagram'),
             'facebook' => $request->input('facebook'),
+            'atendente_id' => $request->input('atendente_id'),
             'created_at'=> now()
 
         ];
-
-
 
         try {
             $insert = DB::table('crm_contato')->insert($data);

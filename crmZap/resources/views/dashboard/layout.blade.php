@@ -17,6 +17,8 @@
         <link href="{{ asset('dashboard/assets/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('dashboard/assets/css/style.css') }}" rel="stylesheet">
 
+        <script src="{{ asset('dashboard/assets/js/jquery.js') }}"></script>
+
         <title>Grupo sollution - Admin</title>
     </head>
 
