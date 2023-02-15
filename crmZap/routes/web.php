@@ -16,6 +16,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
+//Rotas futuras para colocar dentro da org de pós logado
+Route::view('/leads', 'dashboard.lead');
 
 Route::get('/', [RegisterController::class, 'index'])->name('login');
 Route::post('/', [RegisterController::class, 'login_action'])->name('login_action');
@@ -26,5 +28,8 @@ Route::post('/signup', [RegisterController::class, 'register_action'])->name('re
 Route::middleware(['auth'])->group(function () {
     Route::get('/painel', [DashController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [DashController::class, 'logout'])->name('logout');
+    Route::get('/dep',      [RegisterController::class, 'dep'])->name('dep');
+    Route::get('/atend',    [RegisterController::class, 'atend'])->name('atend');
+    Route::get('/contato', [RegisterController::class, 'contato'])->name('contato');
 });
 
