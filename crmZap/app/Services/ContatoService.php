@@ -20,11 +20,8 @@ class ContatoService
 
     public function getByAtendenteId($id)
     {
-        $contato = $this->contactModel->where('atendente_id', $id)->first();
+        $contato = $this->contactModel->where('atendente_id', $id)->get();
         return $contato;
     }
-    public function getByContactId($id)
-    {
-        $contactCarousel = $this ->contactModel->where('atendente_id', $id)->first();
-    }
+   
 }

@@ -28,8 +28,11 @@ Route::post('/signup', [RegisterController::class, 'register_action'])->name('re
 Route::middleware(['auth'])->group(function () {
     Route::get('/painel', [DashController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [DashController::class, 'logout'])->name('logout');
-    Route::get('/dep',      [RegisterController::class, 'dep'])->name('dep');
-    Route::get('/atend',    [RegisterController::class, 'atend'])->name('atend');
-    Route::get('/contato', [RegisterController::class, 'contato'])->name('contato');
-});
+    Route::get('/dep',      [DashController::class, 'dep'])->name('dep');
+    Route::get('/atend',    [DashController::class, 'atend'])->name('atend');
+    Route::get('/contato', [DashController::class, 'contato'])->name('contato');
+    Route::get('/fatura', [DashController::class, 'fatura'])->name('fatura');
+    Route::get('/lead', [DashController::class, 'lead'])->name('lead');
+    Route::get('/perfil', [DashController::class, 'perfil'])->name('perfil');
+}); 
 

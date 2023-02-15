@@ -43,15 +43,15 @@
                             <i class="fa fa-th me-2"></i></i>
                          Dashboard
                         </a>
-                        <a href="" class="nav-item nav-link">
+                        <a href="{{ Route('lead') }}" class="nav-item nav-link">
                             <i class="fa fa-users me-2"></i>
                             Leads
                         </a>
-                        <a href="" class="nav-item nav-link">
+                        <a href="{{ Route('dep') }}" class="nav-item nav-link">
                             <i class="fa fa-briefcase me-2"></i>
                             Departamentos
                         </a>
-                        <a href="" class="nav-item nav-link">
+                        <a href="{{ Route('atend') }}" class="nav-item nav-link">
                             <i class="fa fa-user-plus me-2"></i>
                             Atendente
                         </a>
@@ -59,7 +59,7 @@
                             <i class="fa fa-chart-bar me-2"></i>
                             Avaliações
                         </a>
-                        <a href="" class="nav-item nav-link">
+                        <a href="{{ Route('contato') }}" class="nav-item nav-link">
                             <i class="fa fa-address-book me-2"></i>
                             Contatos
                         </a>
@@ -71,11 +71,11 @@
                             <i class="bi bi-gear-fill me-2"></i>
                             Configurações
                         </a>
-                        <a href="" class="nav-item nav-link">
+                        <a href="{{ Route('perfil') }}" class="nav-item nav-link">
                             <i class="bi bi-person-circle me-2"></i>
                             Perfil
                         </a>
-                        <a href="" class="nav-item nav-link">
+                        <a href="{{ Route('fatura') }}" class="nav-item nav-link">
                             <i class="bi bi-receipt me-2"></i>
                             Faturas
                         </a>

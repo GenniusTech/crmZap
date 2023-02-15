@@ -27,22 +27,6 @@ class RegisterController extends Controller
     }
 
 
-    public function lead(Request $request){
-        return view('dashboard/lead');
-    }
-
-    public function dep(Request $request){
-        return view('dashboard/dep');
-    }
-
-    public function atend(Request $request){
-        return view('dashboard/atend');
-    }
-
-    public function contato(Request $request){
-        return view('dashboard/contatos');
-    }
-
     public function login_action(Request $request){
         
         $credentials = $request->only(['email', 'senha']);
