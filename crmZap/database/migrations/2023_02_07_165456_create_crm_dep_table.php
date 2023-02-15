@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('crm_dep', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('atendente_id');
             $table->string('nome', 100);
             $table->string('segmento', 100);
             $table->string('resp', 100);

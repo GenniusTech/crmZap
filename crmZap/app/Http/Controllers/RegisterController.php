@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atendente;
+use App\Models\Contato;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\RegisterService;
@@ -13,11 +14,10 @@ class RegisterController extends Controller
 {   
     private $registerServices;
 
-    public function __construct(RegisterService $classRegister)
+    public function __construct(DashController $dashController )
     {
-        $this->registerServices = $classRegister;
 
-       
+      
     }
 
     public function index(Request $request)
@@ -25,14 +25,7 @@ class RegisterController extends Controller
         return view('signin');
        
     }
-    public function dashboard ()
-    {
-        
-        $countat = DB::table('crm_atendente')->count();
-        $count = DB::table('crm_contato')->count();
-        
-        return view('dashboard/dashboard', ['count' => $count], ['countat' => $countat]);
-    }
+
 
     public function lead(Request $request){
         return view('dashboard/lead');
@@ -104,9 +97,5 @@ class RegisterController extends Controller
         redirect()->back()->withErrors('Erro! Falha ao cadastrar o usuário!');
     }
     
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');//
-    }
+    
 }

@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('crm_atendente', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 255);
-            $table->string('email', 255);
+            $table->unsignedBigInteger('user_id');
             $table->string('tell', 255);
-            $table->string('senha', 255);
             $table->integer('dep')->nullable();
             $table->integer('tipo')->nullable();
             $table->integer('status')->unsigned()->default(0)->comment('0: inactive, 1: active')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users'); 
         });
     }
 

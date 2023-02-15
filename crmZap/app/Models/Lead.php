@@ -5,22 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contato extends Model
+class Lead extends Model 
 {
     use HasFactory;
 
-    protected $table = 'crm_contato';
+    protected $table = 'crm_leads';
 
     protected $fillable = [
         'id',
         'nome',
         'email',
         'tell',
-        'empresa',
-        'profissao',
-        'instagram',
-        'facebook',
-        'id_atendente',
+        'chat',
+        'atendent_id',
         'created_at'
     ];
 
@@ -32,3 +29,4 @@ class Contato extends Model
         'email_verified_at' => 'datetime',
     ];
 }
+

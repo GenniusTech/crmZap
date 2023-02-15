@@ -37,6 +37,16 @@ class Atendente extends Authenticatable
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class); 
+    }
+
+    public function contatos ()
+    {
+        return $this->hasMany(Contato::class);
+    }
+
+    public function leads()
+    {
+        return $this->hasMany(Lead::class);
     }
 }

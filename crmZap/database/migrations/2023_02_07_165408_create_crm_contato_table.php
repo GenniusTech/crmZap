@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('crm_contato', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('atendente_id');
             $table->string('nome', 100);
             $table->string('email', 100)->unique();
             $table->string('tell', 100);
