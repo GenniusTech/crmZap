@@ -90,18 +90,43 @@ class DashController extends Controller
         
     }
 
-    public function carousel_atendente (Request $request)
-    {
-        
-       
-    }
+   
     public function atend(){
         return view('dashboard/atend');
     }
 
-    public function contato(){
-        return view('dashboard/contatos');
+    public function contato(Request $request){
+
+        $user = Auth::user();
+        $contato = Atendente::where('user_id', $user->id)->first();
+        if ($contato->tipo === 1) {
+            $contatos = Contato::all();
+        } else if ($contato->tipo === 2) {
+            $novoContato = new Contato();
+            $contatos = Contato::where('atendente_id', $user->id)->get();
+        }
+
+        return view('dashboard/contatos',['contatos'=>$contatos]);
     }
+    public function contato_action (Request $request){
+        $user = Auth::user();
+
+        $contato = new Contato();
+        $contato->nome = $request->input('nome');
+        $contato->email = $request->input('email');
+        $contato->tell = $request->input('tell');
+        $contato->empresa = $request->input('empresa');
+        $contato->profissao = $request->input('profissao');
+        $contato->instagram = $request->input('instagram');
+        $contato->facebook = $request->input('facebook');
+
+        $contato->atendente_id = $user->id;
+    
+        $contato->save();
+    
+        return redirect('contato')->with('success', 'Contato adicionado com sucesso!');
+    }
+
     public function dep(){
         return view('dashboard/dep');
     }
