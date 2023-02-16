@@ -109,10 +109,10 @@ class DashController extends Controller
         return view('dashboard/contatos',['contatos'=>$contatos]);
     }
     public function contato_action (Request $request){
+        $contato='não definido';
         $user = Auth::user();
-
         $contato = new Contato();
-        $contato->nome = $request->input('nome');
+        $contato->nome = $request->input('nome') . ' ' . $request->input('sobrenome');
         $contato->email = $request->input('email');
         $contato->tell = $request->input('tell');
         $contato->empresa = $request->input('empresa');

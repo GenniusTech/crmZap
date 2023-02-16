@@ -51,7 +51,7 @@
                         <input type="text" id="nome" name="nome" class="form-control" placeholder="Primeiro nome">
                     </div>
                     <div class="col">
-                        <input type="text" id="segundoNome" name="segundoNome" class="form-control" placeholder="Último nome">
+                        <input type="text" id="sobrenome" name="sobrenome" class="form-control" placeholder="Último nome">
                     </div>
                 </div>
                 <div class="row mb-3">
