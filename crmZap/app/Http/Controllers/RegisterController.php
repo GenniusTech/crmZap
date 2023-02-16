@@ -64,6 +64,7 @@ class RegisterController extends Controller
         ]);
 
         $dataUser = [
+            'nome' => $request->get('nome'),
             'email' => $request->get('email'),
             'password'=> bcrypt($request->get('senha'))
         ];

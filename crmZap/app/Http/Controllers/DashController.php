@@ -38,11 +38,18 @@ class DashController extends Controller
         $this->atendentes = [];
         $this->leadsStatusCount = 0;
         $this->contatos = [];//2
+
     }
 
     public function dashboard (Request $request)
     {
+        
+        
         $user = Auth::user();
+        $atendeinfor = Atendente::where('user_id', $user->id)->first();
+        $nome = $atendeinfor->nome; 
+        $email = $user->email; 
+
         $atendente = $this->atendenteService->getAtendenteByUserId($user->id);
         $getInfos = $this->setInfosByTipo($atendente);
         $count_atendente = $this->atendenteService->getAll()->count();
@@ -55,7 +62,9 @@ class DashController extends Controller
             'leadsStatusCount'=>$this->leadsStatusCount,
             'tipo' => $this->tipo,
             'atendentes'=>$this->atendentes,
-            'contatos'=>$this->contatos
+            'contatos'=>$this->contatos,
+            'nome'=>$nome,
+            'email'=>$email
             ]
         );
     }
