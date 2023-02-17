@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Atendente;
 use App\Models\Contato;
+use App\Models\Dep;
+use App\Models\Lead;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Services\AtendenteService;
 use App\Services\ContatoService;
 use App\Services\LeadsService;
+use Illuminate\Support\Facades\Hash;
 
 class DashController extends Controller
 {   
@@ -91,9 +95,55 @@ class DashController extends Controller
     }
 
    
-    public function atend(){
-        return view('dashboard/atend');
+    public function atend() {
+        $user = Auth::user();
+        $atend = Atendente::where('user_id', $user->id)->first();
+        if ($atend->tipo === 1) {
+            $atendente = DB::table('crm_atendente')
+                        ->join('users', 'users.id', '=', 'crm_atendente.user_id')
+                        ->select('users.*', 'crm_atendente.*')
+                        ->get();
+        } else if ($atend->tipo === 2) {
+            $atendente = DB::table('crm_atendente')
+            ->join('users', 'users.id', '=', 'crm_atendente.user_id')
+            ->select('users.*', 'crm_atendente.*')
+            ->where('crm_atendente.user_id', '=', $user->id)
+            ->get();
+        }
+        return view('dashboard/atend', ['atendente' => $atendente]);
     }
+    public function addAtend(Request $request){
+        DB::beginTransaction();
+        
+        try {
+            // Cria o novo usuário na tabela users
+            $user = new User();
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('senha'));
+            $user->save();
+            $users = Auth::user();
+            // Cria o novo atendente na tabela crm_atendentes
+            $atendente = new Atendente();
+            $atendente->nome = $request->input('nome');
+            $atendente->tell = $request->input('tell');
+            $atendente->dep = $request->input('dep');
+            $atendente->user_id = $users->id;
+            $atendente ->status = 2;
+            $atendente ->tipo = 2;
+            $atendente->save();
+
+            DB::commit();
+
+            return redirect('atend')->with('success', 'Usuário cadastrado com sucesso!');
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return redirect()->back()->with('error', 'Erro ao cadastrar usuário.');
+        }
+    }
+    
+    
+    
 
     public function contato(Request $request){
 
@@ -102,7 +152,7 @@ class DashController extends Controller
         if ($contato->tipo === 1) {
             $contatos = Contato::all();
         } else if ($contato->tipo === 2) {
-            $novoContato = new Contato();
+            
             $contatos = Contato::where('atendente_id', $user->id)->get();
         }
 
@@ -127,17 +177,68 @@ class DashController extends Controller
         return redirect('contato')->with('success', 'Contato adicionado com sucesso!');
     }
 
-    public function dep(){
-        return view('dashboard/dep');
+    public function dep(Request $request){
+        $user = Auth::user();
+        $deplist = [];
+        $contato = Atendente::where('user_id', $user->id)->first();
+        if ($contato->tipo === 1) {
+            $deplist = Dep::all();
+        } else if ($contato->tipo === 2) {
+            
+            $deplist = Dep::where('atendente_id', $user->id)->get();
+        }
+        
+        return view('dashboard/dep',['deplist' =>$deplist]);
     }
-    public function fatura(){
-        return view('dashboard/fatura');
+    public function addDep(Request $request){
+        $contato='não definido';
+        $user = Auth::user();
+        $contato = new Dep();
+        $contato->nome = $request->input('nome');
+        $contato->segmento = $request->input('segmento');
+        $contato->resp = $request->input('resp');
+        $contato->status = $request->input('status');
+        $contato->atendente_id = $user->id;
+        $contato->save();
+    
+        return redirect('dep')->with('success', 'Contato adicionado com sucesso!');
     }
+   
     public function lead(){
-        return view('dashboard/lead');
+        $user = Auth::user();
+        $leadlist = [];
+        $contato = Atendente::where('user_id', $user->id)->first();
+        if ($contato->tipo === 1) {
+            $leadlist = Lead::all();
+        } else if ($contato->tipo === 2) {
+            
+            $leadlist = Lead::where('atendente_id', $user->id)->get();
+        }
+
+        return view('dashboard/lead',['leadlist'=>$leadlist]);
     }
+    public function addLead(Request $request){
+        $contato='não definido';
+        $user = Auth::user();
+        $contato = new Lead();
+        $contato->nome = $request->input('nome');
+        $contato->email = $request->input('email');
+        $contato->tell = $request->input('tell');
+        $contato->origem = $request->input('origem');
+        $contato->status = 0;
+        $contato->atendente_id = $user->id;
+        $contato->save();
+    
+        return redirect('lead')->with('success', 'Contato adicionado com sucesso!');
+    }
+    
+
     public function perfil(){
         return view('dashboard/perfil');
+    }
+
+    public function fatura(){
+            return view('dashboard/fatura');
     }
 
     public function logout()

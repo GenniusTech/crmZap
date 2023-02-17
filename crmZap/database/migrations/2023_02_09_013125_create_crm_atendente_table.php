@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nome', 255);
             $table->unsignedBigInteger('user_id');
             $table->string('tell', 255);
-            $table->integer('dep')->nullable();
+            $table->string('dep')->nullable();
             $table->integer('tipo')->nullable();
             $table->integer('status')->unsigned()->default(0)->comment('0: inactive, 1: active')->nullable();
             $table->timestamps();

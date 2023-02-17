@@ -25,7 +25,7 @@
                     <tbody id="table">
                         @foreach ($contatos as $contato)
                             <tr>
-                            <th scope="col">{{ $contato->id }}</th>
+                            <th scope="col">#</th>
                             <th scope="col">{{ $contato->nome }}</th>
                             <th scope="col">{{ $contato->email }}</th>
                             <th scope="col">{{ $contato->tell }}</th>
