@@ -483,3 +483,12 @@ a:hover {
   background-color: #9ab251;
   border: #9ab251;
 }
+
+/* Avaliações */
+.avaliações {
+  height: 80vh;
+}
+
+.avaliações .alert p {
+  color: #050505;
+}
