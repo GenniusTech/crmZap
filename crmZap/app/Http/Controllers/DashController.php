@@ -38,11 +38,18 @@ class DashController extends Controller
         $this->atendentes = [];
         $this->leadsStatusCount = 0;
         $this->contatos = [];//2
+
     }
 
     public function dashboard (Request $request)
     {
+        
+        
         $user = Auth::user();
+        $atendeinfor = Atendente::where('user_id', $user->id)->first();
+        $nome = $atendeinfor->nome; 
+        $email = $user->email; 
+
         $atendente = $this->atendenteService->getAtendenteByUserId($user->id);
         $getInfos = $this->setInfosByTipo($atendente);
         $count_atendente = $this->atendenteService->getAll()->count();
@@ -55,7 +62,9 @@ class DashController extends Controller
             'leadsStatusCount'=>$this->leadsStatusCount,
             'tipo' => $this->tipo,
             'atendentes'=>$this->atendentes,
-            'contatos'=>$this->contatos
+            'contatos'=>$this->contatos,
+            'nome'=>$nome,
+            'email'=>$email
             ]
         );
     }
@@ -81,18 +90,43 @@ class DashController extends Controller
         
     }
 
-    public function carousel_atendente (Request $request)
-    {
-        
-       
-    }
+   
     public function atend(){
         return view('dashboard/atend');
     }
 
-    public function contato(){
-        return view('dashboard/contatos');
+    public function contato(Request $request){
+
+        $user = Auth::user();
+        $contato = Atendente::where('user_id', $user->id)->first();
+        if ($contato->tipo === 1) {
+            $contatos = Contato::all();
+        } else if ($contato->tipo === 2) {
+            $novoContato = new Contato();
+            $contatos = Contato::where('atendente_id', $user->id)->get();
+        }
+
+        return view('dashboard/contatos',['contatos'=>$contatos]);
     }
+    public function contato_action (Request $request){
+        $contato='não definido';
+        $user = Auth::user();
+        $contato = new Contato();
+        $contato->nome = $request->input('nome') . ' ' . $request->input('sobrenome');
+        $contato->email = $request->input('email');
+        $contato->tell = $request->input('tell');
+        $contato->empresa = $request->input('empresa');
+        $contato->profissao = $request->input('profissao');
+        $contato->instagram = $request->input('instagram');
+        $contato->facebook = $request->input('facebook');
+
+        $contato->atendente_id = $user->id;
+    
+        $contato->save();
+    
+        return redirect('contato')->with('success', 'Contato adicionado com sucesso!');
+    }
+
     public function dep(){
         return view('dashboard/dep');
     }

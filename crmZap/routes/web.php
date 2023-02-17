@@ -31,7 +31,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [DashController::class, 'logout'])->name('logout');
     Route::get('/dep',      [DashController::class, 'dep'])->name('dep');
     Route::get('/atend',    [DashController::class, 'atend'])->name('atend');
+
     Route::get('/contato', [DashController::class, 'contato'])->name('contato');
+    Route::post('contato',[DashController::class, 'contato_action'])->name('adicionar_contato');
+
     Route::get('/fatura', [DashController::class, 'fatura'])->name('fatura');
     Route::get('/lead', [DashController::class, 'lead'])->name('lead');
     Route::get('/perfil', [DashController::class, 'perfil'])->name('perfil');

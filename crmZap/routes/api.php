@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\API\AttendantController;
+use App\Http\Controllers\API\ChatController;
 use App\Http\Controllers\ApiListaAtendenteController;
+use App\Models\ChatAvaliazao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,5 +35,5 @@ Route::get('listContato/{id}', [AttendantController::class, 'listContatoId'])->n
 Route::post('addContato', [AttendantController::class, 'addContato'])->name('addContato');
 Route::delete('deleteContato/{id}', [AttendantController::class, 'deleteContato'])->name('deleteContato');
 
-
-
+Route::get('listAvaliacao', [ChatController::class,'listAvaliacao'])->name('listAvaliacao');
+Route::post('addAvaliacao', [ChatController::class,'addAvaliacao'])->name('addAvaliacao');
