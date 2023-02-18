@@ -23,19 +23,17 @@
                             <th scope="col">Telefone</th>
                             <th scope="col">Origem</th>
                             <th scope="col">Dt. inclusão</th>
-                            <th scope="col">Id</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($leadlist as $leadlists)
                         <tr>
-                            <th scope="row"></th>
+                            <th scope="row">{{ $leadlists->id }}</th>
                             <td>{{ $leadlists->nome }}</td>
                             <td>{{ $leadlists->email }}</td>
                             <td>{{ $leadlists->tell }}</td>
                             <td>{{ $leadlists->origem }}</td>
                             <td>{{ $leadlists->created_at }}</td>
-                            <td>{{ $leadlists->id }}</td>
                         </tr>
                         @endforeach
                     </tbody>
