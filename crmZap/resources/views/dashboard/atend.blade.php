@@ -7,7 +7,7 @@
                 <div class="card-setor h-100 bg-light rounded p-4">
 
                    @foreach ($atendente as $atend)
-                    <div class="d-flex align-items-center py-3">
+                    <div class="d-flex align-items-center p-3 bg-white mb-2">
                         <i class="bi bi-person-circle" style="font-size: 60px;"></i>
                         <div class="w-100 ms-3">
                             <div>
