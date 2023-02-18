@@ -36,7 +36,7 @@
                             <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                         </div>
                         <div class="ms-3 user-text">
-                            <h6 class="mb-0 user-name">{{  Auth::user()->nome }}</h6>
+                            <h6 class="mb-0 user-name">{{  Auth::user()->nome}}</h6>
                             <span class="user-email">{{  Auth::user()->email }}</span>
                         </div>
                     </div>

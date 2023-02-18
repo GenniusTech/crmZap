@@ -49,4 +49,8 @@ class Atendente extends Authenticatable
     {
         return $this->hasMany(Lead::class);
     }
+    public function dep()
+    {
+        return $this->hasMany(Lead::class);
+    }
 }

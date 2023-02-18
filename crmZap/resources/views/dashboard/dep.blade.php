@@ -5,13 +5,14 @@
 
                 <div class="col-sm-12 col-md-6 col-xl-12">
                     <div class="card-setor h-100 bg-light rounded p-4">
+                        @foreach ($deplist as $dep)
                         <div class="d-flex align-items-center py-3">
                             <i class="bi bi-person-circle" style="font-size: 60px;"></i>
                             <div class="w-100 ms-3">
                                 <div>
-                                    <h6 class="mb-0">Limpa nome indenização</h6>
-                                    <span>Finança</span>
-                                    <p>Giovane</p>
+                                    <h6 class="mb-0">{{ $dep->nome }}</h6>
+                                    <span>{{ $dep->segmento }}</span>
+                                    <p>{{ $dep->resp }}</p>
                                     <a href="#modal-setor" class="modal-setor-a">
                                         <i class="bi bi-pencil pe-2" style="font-size: 20px;"></i>
                                     </a>
@@ -19,8 +20,9 @@
                                         <i class="bi bi-trash" style="font-size: 20px;"></i>
                                     </a>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
+                         @endforeach
                     </div>
                 </div>
                 
@@ -85,20 +87,26 @@
             <div class="modal-content-setor">
                 <h5>Criar Departamento</h5>
                 <hr>
-                <form>
+                <form method="POST" action="{{ route('addDep') }}">
+                    @csrf
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="inputName3" placeholder="Nome">
+                            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="inputSegmento " placeholder="Segmento">
+                            <input type="text" class="form-control" name="segmento" id="segmento " placeholder="Segmento">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="inputResponsável" placeholder="Responsável">
+                            <input type="text" class="form-control" name="resp" id="resp" placeholder="Responsável">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="status" id="status" placeholder="status">
                         </div>
                     </div>
                     <div class="form-check form-switch">
@@ -111,7 +119,7 @@
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
-                        <button class="btn btn-success" type="button">Salvar</button>
+                        <button class="btn btn-success" id="btnCadastrar" type="submit">Salvar</button>
                     </div>
                 </form>
                 <a href="#" class="modal__close">&times;</a>

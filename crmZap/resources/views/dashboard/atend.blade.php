@@ -5,22 +5,26 @@
 
             <div class="col-sm-12 col-md-6 col-xl-12">
                 <div class="card-setor h-100 bg-light rounded p-4">
+
+                   @foreach ($atendente as $atend)
                     <div class="d-flex align-items-center py-3">
                         <i class="bi bi-person-circle" style="font-size: 60px;"></i>
                         <div class="w-100 ms-3">
                             <div>
-                                <h6 class="mb-0">Cristina</h6>
-                                <span>emailexemplo@gmail.com</span>
-                                <p>limpa nome, limpa nome indenização, voo indenizado, score</p>
+                                <h6 class="mb-0">{{ $atend->nome }}</h6>
+                                <span>{{ $atend->email }}</span>
+                                <p>{{ $atend->dep }}</p>
                                 <a href="#modal-atendente" class="modal-setor-a">
                                     <i class="bi bi-pencil pe-2" style="font-size: 20px;"></i>
                                 </a>
                                 <a href="#modal-atendente-cancelar" class="modal-setor-a">
                                     <i class="bi bi-trash" style="font-size: 20px;"></i>
                                 </a>
-                            </div>
+                            </div>     
                         </div>
                     </div>
+                    @endforeach
+
                 </div>
             </div>
             
@@ -31,30 +35,30 @@
         <div class="modal-content-setor">
             <h5>Editar Atendente</h5>
             <hr>
-            <form>
+            <form method="POST" action="">
                 <i class="bi bi-person-circle" style="font-size: 50px;"></i>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="inputName3" placeholder="Nome">
+                        <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="number" class="form-control" id="inputTelefone" placeholder="Telefone">
+                        <input type="number" class="form-control" name="tell" id="tell" placeholder="Telefone">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="E-mail">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="E-mail">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="inputSenha" placeholder="Senha">
+                        <input type="text" class="form-control" name="senha" id="senha" placeholder="Senha">
                     </div>
                 </div>
                 <label for="formFile" class="form-label">Selecione um ou mais departamentos</label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" name="" aria-label="Default select example">
                     <option selected>Departamentos</option>
                     <option value="1">Limpa nome indenização</option>
                     <option value="2">Voo indenizado</option>
@@ -76,7 +80,7 @@
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
-                    <button class="btn btn-success" type="button">Salvar</button>
+                    <button class="btn btn-success" type="submit">Salvar</button>
                 </div>
             </form>
             <a href="#" class="modal__close">&times;</a>
@@ -100,35 +104,36 @@
         <div class="modal-content-setor">
             <h5>Criar Atendente</h5>
             <hr>
-            <form>
+            <form method="POST" action="{{ route('addAtend') }}">
+                @csrf
                 <i class="bi bi-person-circle" style="font-size: 50px;"></i>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="inputName3" placeholder="Nome">
+                        <input type="text" class="form-control" name="nome" id="inputName3" placeholder="Nome">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="number" class="form-control" id="inputTelefone" placeholder="Telefone">
+                        <input type="number" class="form-control" name="tell" id="inputTelefone" placeholder="Telefone">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="E-mail">
+                        <input type="email" class="form-control" name="email" id="inputEmail" placeholder="E-mail">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="inputSenha" placeholder="Senha">
+                        <input type="text" class="form-control" name="password" id="inputSenha" placeholder="Senha">
                     </div>
                 </div>
                 <label for="formFile" class="form-label">Selecione um ou mais departamentos</label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" name="dep" aria-label="Default select example">
                     <option selected>Departamentos</option>
-                    <option value="1">Limpa nome indenização</option>
-                    <option value="2">Voo indenizado</option>
-                    <option value="3">Limpa nome</option>
-                    <option value="4">Score</option>
+                    <option value="Limpa nome indenização">Limpa nome indenização</option>
+                    <option value="Voo indenizado">Voo indenizado</option>
+                    <option value="Limpa nome">Limpa nome</option>
+                    <option value="Score">Score</option>
                 </select>
                 <div class="form-check form-switch pt-2">
                     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
@@ -140,7 +145,7 @@
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
-                    <button class="btn btn-success" type="button">Salvar</button>
+                    <button class="btn btn-success" type="submit">Salvar</button>
                 </div>
             </form>
             <a href="#" class="modal__close">&times;</a>

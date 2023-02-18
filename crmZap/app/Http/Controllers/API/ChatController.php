@@ -36,7 +36,7 @@ class ChatController extends Controller
             ];
             $listReturn[] = $newchat;
         }
-
+        
         return response()->json($listReturn);
     }
 
