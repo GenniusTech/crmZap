@@ -14,6 +14,7 @@ use App\Services\AtendenteService;
 use App\Services\ContatoService;
 use App\Services\LeadsService;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\Console\Input\Input;
 
 class DashController extends Controller
 {   
@@ -98,38 +99,48 @@ class DashController extends Controller
     public function atend() {
         $user = Auth::user();
         $atend = Atendente::where('user_id', $user->id)->first();
+        $tipo =[];
         if ($atend->tipo === 1) {
-            $atendente = DB::table('crm_atendente')
-                        ->join('users', 'users.id', '=', 'crm_atendente.user_id')
-                        ->select('users.*', 'crm_atendente.*')
-                        ->get();
+            $deplist = Dep::all();
+            $atendente = Atendente::all();
+            $tipo =1;
         } else if ($atend->tipo === 2) {
-            $atendente = DB::table('crm_atendente')
-            ->join('users', 'users.id', '=', 'crm_atendente.user_id')
-            ->select('users.*', 'crm_atendente.*')
-            ->where('crm_atendente.user_id', '=', $user->id)
-            ->get();
+            $atendente  = Atendente::where('user_id', $user->id)->get();
+            $deplist = Dep::where('atendente_id', $user->id)->get();
         }
-        return view('dashboard/atend', ['atendente' => $atendente]);
+        return view('dashboard/atend', ['atendente' => $atendente,'tipo'=>$tipo,'deplist'=>$deplist]);
     }
     public function addAtend(Request $request){
         DB::beginTransaction();
         
+
         try {
             // Cria o novo usuário na tabela users
             $user = new User();
             $user->email = $request->input('email');
+            $user->nome = $request->input('nome');
             $user->password = Hash::make($request->input('senha'));
             $user->save();
             $users = Auth::user();
             // Cria o novo atendente na tabela crm_atendentes
             $atendente = new Atendente();
             $atendente->nome = $request->input('nome');
+            $atendente->email = $request->input('email');
             $atendente->tell = $request->input('tell');
             $atendente->dep = $request->input('dep');
             $atendente->user_id = $users->id;
-            $atendente ->status = 2;
-            $atendente ->tipo = 2;
+            if ($request->input('status') == 1) {
+                $status = 1;
+            } else {
+                $status = 2;
+            }
+            $atendente ->status = $status;
+            if ($request->input('tipo') == 1) {
+                $tipo = 1;
+            } else {
+                $tipo = 2;
+            }
+            $atendente ->tipo = $tipo;
             $atendente->save();
 
             DB::commit();
@@ -149,14 +160,16 @@ class DashController extends Controller
 
         $user = Auth::user();
         $contato = Atendente::where('user_id', $user->id)->first();
+        $tipo =[];
         if ($contato->tipo === 1) {
             $contatos = Contato::all();
+            $tipo = 1;
         } else if ($contato->tipo === 2) {
             
             $contatos = Contato::where('atendente_id', $user->id)->get();
         }
 
-        return view('dashboard/contatos',['contatos'=>$contatos]);
+        return view('dashboard/contatos',['contatos'=>$contatos,'tipo'=>$tipo]);
     }
     public function contato_action (Request $request){
         $contato='não definido';
@@ -180,15 +193,17 @@ class DashController extends Controller
     public function dep(Request $request){
         $user = Auth::user();
         $deplist = [];
+        $tipo =[];
         $contato = Atendente::where('user_id', $user->id)->first();
         if ($contato->tipo === 1) {
             $deplist = Dep::all();
+            $tipo =1;
         } else if ($contato->tipo === 2) {
             
             $deplist = Dep::where('atendente_id', $user->id)->get();
         }
         
-        return view('dashboard/dep',['deplist' =>$deplist]);
+        return view('dashboard/dep',['deplist' =>$deplist,'tipo'=>$tipo]);
     }
     public function addDep(Request $request){
         $contato='não definido';
@@ -207,15 +222,17 @@ class DashController extends Controller
     public function lead(){
         $user = Auth::user();
         $leadlist = [];
+        $tipo =[];
         $contato = Atendente::where('user_id', $user->id)->first();
         if ($contato->tipo === 1) {
             $leadlist = Lead::all();
+            $tipo =1;
         } else if ($contato->tipo === 2) {
             
             $leadlist = Lead::where('atendente_id', $user->id)->get();
         }
 
-        return view('dashboard/lead',['leadlist'=>$leadlist]);
+        return view('dashboard/lead',['leadlist'=>$leadlist,'tipo'=>$tipo]);
     }
     public function addLead(Request $request){
         $contato='não definido';
@@ -225,7 +242,7 @@ class DashController extends Controller
         $contato->email = $request->input('email');
         $contato->tell = $request->input('tell');
         $contato->origem = $request->input('origem');
-        $contato->status = 0;
+        $contato->status = 1;
         $contato->atendente_id = $user->id;
         $contato->save();
     
@@ -240,7 +257,7 @@ class DashController extends Controller
     public function fatura(){
             return view('dashboard/fatura');
     }
-
+   
     public function logout()
     {
         Auth::logout();

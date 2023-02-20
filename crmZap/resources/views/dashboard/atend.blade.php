@@ -130,17 +130,17 @@
                 <label for="formFile" class="form-label">Selecione um ou mais departamentos</label>
                 <select class="form-select" name="dep" aria-label="Default select example">
                     <option selected>Departamentos</option>
-                    <option value="Limpa nome indenização">Limpa nome indenização</option>
-                    <option value="Voo indenizado">Voo indenizado</option>
-                    <option value="Limpa nome">Limpa nome</option>
-                    <option value="Score">Score</option>
+                    @foreach ($deplist as $dep)
+                         <option value="{{ $dep->nome }}">{{ $dep->nome }}</option>
+                    @endforeach
+                   
                 </select>
                 <div class="form-check form-switch pt-2">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="tipo" value="1">
                     <label class="form-check-label" for="flexSwitchCheckDefault">Administrador</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"  name="status" value="1">
                     <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">

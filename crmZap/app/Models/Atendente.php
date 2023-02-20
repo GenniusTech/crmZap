@@ -19,6 +19,7 @@ class Atendente extends Authenticatable
 
     protected $fillable = [
         'nome',
+        'email',
         'tell',
         'dep',
         'tipo',
@@ -37,7 +38,8 @@ class Atendente extends Authenticatable
 
     public function user()
     {
-        return $this->hasOne(User::class); 
+        //return $this->hasOne(User::class); 
+       return $this->belongsTo(User::class);
     }
 
     public function contatos ()
