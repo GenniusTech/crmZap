@@ -75,6 +75,7 @@ class RegisterController extends Controller
             $dataAtendente = [
                 'nome' => $request->get('nome'),
                 'tell' => $request->get('tell'),
+                'email' => $request->get('email'),
                 'user_id' => $userCreate->id,
                 'status' => 2,
                 'tipo' => 2

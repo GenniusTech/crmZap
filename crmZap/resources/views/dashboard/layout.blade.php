@@ -53,34 +53,51 @@
                             <i class="fa fa-briefcase me-2"></i>
                             Departamentos
                         </a>
-                        <a href="{{ Route('atend') }}" class="nav-item nav-link">
-                            <i class="fa fa-user-plus me-2"></i>
-                            Atendente
-                        </a>
+
+                        @if ($tipo === 1)
+                            <a href="{{ Route('atend') }}" class="nav-item nav-link">
+                                <i class="fa fa-user-plus me-2"></i>
+                                Atendente
+                            </a>
+                        @endif
+
+                        @if ($tipo === 1)
                         <a href="#" class="nav-item nav-link">
                             <i class="fa fa-chart-bar me-2"></i>
                             Avaliações
                         </a>
+                        @endif
+
                         <a href="{{ Route('contato') }}" class="nav-item nav-link">
                             <i class="fa fa-address-book me-2"></i>
                             Contatos
                         </a>
+
+                        @if ($tipo === 1)
                         <a href="#" class="nav-item nav-link">
                             <i class="bi bi-list-check me-2"></i>
                             Campanhas
                         </a>
+                        @endif
+
+                        @if ($tipo === 1)
                         <a href="#" class="nav-item nav-link">
                             <i class="bi bi-gear-fill me-2"></i>
                             Configurações
                         </a>
+                        @endif
+
                         <a href="{{ Route('perfil') }}" class="nav-item nav-link">
                             <i class="bi bi-person-circle me-2"></i>
                             Perfil
                         </a>
+
+                        @if ($tipo === 1)
                         <a href="{{ Route('fatura') }}" class="nav-item nav-link">
                             <i class="bi bi-receipt me-2"></i>
                             Faturas
                         </a>
+                        @endif
                     </div>
                 </nav>
             </div>
