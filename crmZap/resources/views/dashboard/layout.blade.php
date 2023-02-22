@@ -49,10 +49,13 @@
                             <i class="fa fa-users me-2"></i>
                             Leads
                         </a>
+
+                        @if ($tipo === 1)
                         <a href="{{ Route('dep') }}" class="nav-item nav-link">
                             <i class="fa fa-briefcase me-2"></i>
                             Departamentos
                         </a>
+                        @endif
 
                         @if ($tipo === 1)
                             <a href="{{ Route('atend') }}" class="nav-item nav-link">
@@ -92,12 +95,19 @@
                             Perfil
                         </a>
 
-                        @if ($tipo === 1)
+                        {{-- @if ($tipo === 1)
                         <a href="{{ Route('fatura') }}" class="nav-item nav-link">
                             <i class="bi bi-receipt me-2"></i>
                             Faturas
                         </a>
-                        @endif
+                        @endif --}}
+
+                        
+                        <a href="{{ route('logout') }}" class="nav-item nav-link">
+                            
+                            Sair
+                        </a>
+                   
                     </div>
                 </nav>
             </div>

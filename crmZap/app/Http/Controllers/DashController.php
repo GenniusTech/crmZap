@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\AtendenteService;
 use App\Services\ContatoService;
 use App\Services\LeadsService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\Console\Input\Input;
 
@@ -168,6 +169,9 @@ class DashController extends Controller
             
             $contatos = Contato::where('atendente_id', $user->id)->get();
         }
+        foreach ($contatos as $contato) {
+            $contato->dataCriacao = Carbon::parse($contato->created_at)->format('d/m/Y H:i:s');
+        }
 
         return view('dashboard/contatos',['contatos'=>$contatos,'tipo'=>$tipo]);
     }
@@ -231,6 +235,9 @@ class DashController extends Controller
             
             $leadlist = Lead::where('atendente_id', $user->id)->get();
         }
+        foreach ($leadlist as $lead) {
+            $lead->dataCriacao = Carbon::parse($lead->created_at)->format('d/m/Y H:i:s');
+        }
 
         return view('dashboard/lead',['leadlist'=>$leadlist,'tipo'=>$tipo]);
     }
@@ -251,11 +258,31 @@ class DashController extends Controller
     
 
     public function perfil(){
-        return view('dashboard/perfil');
+        $user = Auth::user();
+        $tipo =[];
+        $contato = Atendente::where('user_id', $user->id)->first();
+        if ($contato->tipo === 1) {
+           
+            $tipo =1;
+        } else if ($contato->tipo === 2) {
+            
+           
+        }
+        return view('dashboard/perfil',['tipo'=>$tipo]);
     }
 
     public function fatura(){
-            return view('dashboard/fatura');
+        $user = Auth::user();
+        $tipo =[];
+        $contato = Atendente::where('user_id', $user->id)->first();
+        if ($contato->tipo === 1) {
+           
+            $tipo =1;
+        } else if ($contato->tipo === 2) {
+            
+           
+        }
+            return view('dashboard/fatura',['tipo'=>$tipo]);
     }
    
     public function logout()

@@ -27,15 +27,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($leadlist as $leadlists)
+                        @foreach ($leadlist as $lead)
                         <tr>
                             <th scope="row"></th>
-                            <td>{{ $leadlists->nome }}</td>
-                            <td>{{ $leadlists->email }}</td>
-                            <td>{{ $leadlists->tell }}</td>
-                            <td>{{ $leadlists->origem }}</td>
-                            <td>{{ $leadlists->created_at }}</td>
-                            <td>{{ $leadlists->id }}</td>
+                            <td>{{ $lead->nome }}</td>
+                            <td>{{ $lead->email }}</td>
+                            <td>{{ $lead->tell }}</td>
+                            <td>{{ $lead->origem }}</td>
+                            <td>{{ $lead->dataCriacao }}</td>
+                            <td>{{ $lead->id }}</td>
                         </tr>
                         @endforeach
                     </tbody>
