@@ -45,7 +45,7 @@
         <div class="bg-light rounded h-100 p-4">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <h5 class="mb-4">Atendentes</h5>
-                <a href="#" class="link-atendente">Ir para atendentes<i class="fa fa-arrow-right ps-1"></i></a>
+                <a href="{{ Route('atend') }}" class="link-atendente">Ir para atendentes<i class="fa fa-arrow-right ps-1"></i></a>
             </div>
             
             <div class="owl-carousel atendente-carousel">

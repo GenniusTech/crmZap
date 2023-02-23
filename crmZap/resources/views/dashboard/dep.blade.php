@@ -6,7 +6,7 @@
                 <div class="col-sm-12 col-md-6 col-xl-12">
                     <div class="card-setor h-100 bg-light rounded p-4">
                         @foreach ($deplist as $dep)
-                        <div class="d-flex align-items-center py-3">
+                        <div class="d-flex align-items-center p-3 bg-white mb-2">
                             <i class="bi bi-person-circle" style="font-size: 60px;"></i>
                             <div class="w-100 ms-3">
                                 <div>
@@ -16,7 +16,7 @@
                                     <a href="#modal-setor" class="modal-setor-a">
                                         <i class="bi bi-pencil pe-2" style="font-size: 20px;"></i>
                                     </a>
-                                    <a href="#modal-setor-cancelar" class="modal-setor-a">
+                                    <a href="#modal-setor-cancelar" class="modal-setor-a" data-dep-id="{{ $dep->id }}">
                                         <i class="bi bi-trash" style="font-size: 20px;"></i>
                                     </a>
                                 </div>
@@ -76,12 +76,24 @@
                 <h3>Você tem certeza?</h3>
                 <p>Tem certeza que deseja deletar esse departamento?</p>
                 <div class="d-grid gap-2 d-md-flex justify-content-center">
-                    <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
-                    <button class="btn btn-success" type="button">Deletar</button>
+                    <button class="btn btn-danger me-md-2" type="button" data-dismiss="modal">Cancelar</button>
+                    <a href="{{ route('deleteDep', ['id' => '__DEP_ID__']) }}" class="btn btn-success btn-confirm-delete">Deletar</a>
+                    <input type="hidden" id="dep-id" name="dep-id" value="">
                 </div>
                 <a href="#" class="modal__close">&times;</a>
             </div>
         </div>
+        <script>
+            $(document).ready(function() {
+                // Atualiza a URL do botão "Deletar" com o ID do departamento selecionado
+                $('.modal-setor-a').click(function() {
+                    var depId = $(this).data('dep-id');
+                    $('#dep-id').val(depId);
+                    var url = $('.btn-confirm-delete').attr('href').replace('__DEP_ID__', depId);
+                    $('.btn-confirm-delete').attr('href', url);
+                });
+            });
+        </script>
 
         <div id="modal-criar-setor" class="modal-setor">
             <div class="modal-content-setor">
