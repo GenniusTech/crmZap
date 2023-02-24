@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashController;
+use App\Http\Controllers\DepController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -30,10 +31,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/painel', [DashController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [DashController::class, 'logout'])->name('logout');
 
-    Route::get('/dep', [DashController::class,'dep'])->name('dep');
-    Route::post('dep', [DashController::class,'addDep'])->name('addDep');
-    Route::get('/dep/excluir/{id}', [DashController::class, 'deleteDep'])->name('deleteDep');
- 
+    Route::get('/dep', [DepController::class,'dep'])->name('dep');
+    Route::post('dep', [DepController::class,'addDep'])->name('addDep');
+    Route::get('/dep/excluir/{id}', [DepController::class, 'deleteDep'])->name('deleteDep');
+    Route::put('/dep/edit/{id}', [DepController::class, 'editDep'])->name('dep.edit');
+    Route::get('/dep/show/{id}', [DepController::class, 'show'])->name('dep.show');
+
+
     Route::get('/atend', [DashController::class, 'atend'])->name('atend');
     Route::post('atend', [DashController::class, 'addAtend'])->name('addAtend');
     Route::post('/atendentes/{id}',[DashController::class, 'tendDelete'])->name('atendDestroy');

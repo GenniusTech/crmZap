@@ -13,7 +13,7 @@
                                     <h6 class="mb-0">{{ $dep->nome }}</h6>
                                     <span>{{ $dep->segmento }}</span>
                                     <p>{{ $dep->resp }}</p>
-                                    <a href="#modal-setor" class="modal-setor-a">
+                                    <a href="#modal-editar-setor" class="modal-edit-setor" data-dep-id="{{ $dep->id }}">
                                         <i class="bi bi-pencil pe-2" style="font-size: 20px;"></i>
                                     </a>
                                     <a href="#modal-setor-cancelar" class="modal-setor-a" data-dep-id="{{ $dep->id }}">
@@ -33,42 +33,52 @@
             <i class="fa fa-plus"></i>
         </a>
       
-        <div id="modal-setor" class="modal-setor">
+        <div id="modal-editar-setor" class="modal-setor">
+           
             <div class="modal-content-setor">
-                <h5>Editar Departamento</h5>
-                <hr>
-                <form>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="inputName3" placeholder="Nome">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="inputSegmento" placeholder="Segmento">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="inputResponsável" placeholder="Responsável">
-                        </div>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
-                    </div>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Listar departamento no bot</label>
-                    </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
-                        <button class="btn btn-success" type="button">Salvar</button>
-                    </div>
-                </form>
-                <a href="#" class="modal__close">&times;</a>
+              <h5>Editar Departamento</h5>
+              <hr>
+              <form >
+                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                <input type="hidden" class="form-control" id="id" name="id">
+
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="nome" name="depnome" placeholder="Nome">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="segmento" name="depsegmento" placeholder="Segmento">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="resp" name="depresp" placeholder="Responsável">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="status" name="depstatus" placeholder="Status">
+                  </div>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="ativo" name="depativo" checked>
+                  <label class="form-check-label" for="ativo">Ativo</label>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="listar" name="deplistar" checked>
+                  <label class="form-check-label" for="listar">Listar departamento no bot</label>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button class="btn btn-danger me-md-2" type="button" data-bs-dismiss="modal">Cancelar</button>
+                  <button class="btn btn-success" type="submit">Salvar</button>
+                </div>
+              </form>
+              <a href="#" class="modal__close">&times;</a>
             </div>
-        </div>
+          </div>
+
 
         <div id="modal-setor-cancelar" class="modal-setor">
             <div class="modal-content-setor text-center">
@@ -84,7 +94,69 @@
             </div>
         </div>
         <script>
+            $('#modal-editar-setor form').submit(function(e) {
+                e.preventDefault(); // evita que o formulário seja enviado por submit padrão
+
+                // captura os dados do formulário
+                var depID =$('#modal-editar-setor #id').val();
+                var nome = $('#modal-editar-setor #nome').val();
+                var segmento = $('#modal-editar-setor #segmento').val();
+                var resp = $('#modal-editar-setor #resp').val();
+                var status = $('#modal-editar-setor #status').val();
+                var ativo = $('#modal-editar-setor #ativo').prop('checked') ? 1 : 0;
+                var listar = $('#modal-editar-setor #listar').prop('checked') ? 1 : 0;
+                var token = $('#modal-editar-setor #token').val()
+
+                const dados = {
+                    nome: nome,
+                    segmento: segmento,
+                    resp: resp,
+                    status: status,
+                    ativo: ativo,
+                    listar: listar,
+                    token: token
+                };
+
+                // envia a requisição AJAX
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': token
+                    },
+                    url: '/dep/edit/'+depID,
+                    method: 'PUT',
+                    data: dados,
+                    success: function(data) {
+                        alert("Departamento atualizado com sucesso!");
+                        window.location.href = "{{ route('dep') }}";
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Falha ao editar o departamento!");
+                    }
+                });
+            });
             $(document).ready(function() {
+                
+                $('.modal-edit-setor').click(function() {
+                    var depID = $(this).data("dep-id");
+                        $.ajax({
+                            url: '/dep/show/'+depID,
+                            method: "GET",
+                            success: function(data) {
+                                // preenche os campos do formulário no modal com as informações do departamento
+                                console.log(data.data[0]);
+
+                                $("#modal-editar-setor #id").val(depID);
+                                $("#modal-editar-setor #nome").val(data.data[0].nome);
+                                $("#modal-editar-setor #segmento").val(data.data[0].segmento);
+                                $("#modal-editar-setor #resp").val(data.data[0].resp);
+                                $("#modal-editar-setor #status").val(data.data[0].status);
+                                // $("#ativo").prop("checked", data.ativo);
+                                // $("#listar").prop("checked", data.listar);
+                            }
+                    });
+                });
+            
+
                 // Atualiza a URL do botão "Deletar" com o ID do departamento selecionado
                 $('.modal-setor-a').click(function() {
                     var depId = $(this).data('dep-id');

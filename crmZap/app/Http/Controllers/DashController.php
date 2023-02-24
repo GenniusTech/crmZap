@@ -219,45 +219,7 @@ class DashController extends Controller
         return redirect('contato')->with('success', 'Contato adicionado com sucesso!');
     }
 
-    public function dep(Request $request){
-        $user = Auth::user();
-        $deplist = [];
-        $tipo =[];
-        $contato = Atendente::where('user_id', $user->id)->first();
-        if ($contato->tipo === 1) {
-            $deplist = Dep::all();
-            $tipo =1;
-        } else if ($contato->tipo === 2) {
-            
-            $deplist = Dep::where('atendente_id', $user->id)->get();
-        }
-        
-        return view('dashboard/dep',['deplist' =>$deplist,'tipo'=>$tipo]);
-    }
-    public function addDep(Request $request){
-        $contato='não definido';
-        $user = Auth::user();
-        $contato = new Dep();
-        $contato->nome = $request->input('nome');
-        $contato->segmento = $request->input('segmento');
-        $contato->resp = $request->input('resp');
-        $contato->status = $request->input('status');
-        $contato->atendente_id = $user->id;
-        $contato->save();
     
-        return redirect('dep')->with('success', 'Contato adicionado com sucesso!');
-    }
-
-   public function deleteDep($id)
-    {
-        $dep = Dep::find($id);
-        if ($dep) {
-            $dep->delete();
-            return redirect()->back()->with('success', 'Departamento excluído com sucesso!');
-        } else {
-            return redirect()->back()->with('error', 'Departamento não encontrado.');
-        }
-    }
 
    
     public function lead(){
