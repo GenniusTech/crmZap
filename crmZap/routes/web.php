@@ -32,9 +32,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dep', [DashController::class,'dep'])->name('dep');
     Route::post('dep', [DashController::class,'addDep'])->name('addDep');
-
+    Route::get('/dep/excluir/{id}', [DashController::class, 'deleteDep'])->name('deleteDep');
+ 
     Route::get('/atend', [DashController::class, 'atend'])->name('atend');
     Route::post('atend', [DashController::class, 'addAtend'])->name('addAtend');
+    Route::post('/atendentes/{id}',[DashController::class, 'tendDelete'])->name('atendDestroy');
 
     Route::get('/contato', [DashController::class, 'contato'])->name('contato');
     Route::post('contato',[DashController::class, 'contato_action'])->name('adicionar_contato');
@@ -43,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/lead', [DashController::class, 'lead'])->name('lead');
     Route::post('lead', [DashController::class, 'addLead'])->name('addLead');
+   
+
 
     Route::get('/perfil', [DashController::class, 'perfil'])->name('perfil');
 }); 

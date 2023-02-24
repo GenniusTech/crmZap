@@ -26,14 +26,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($leadlist as $leadlists)
+                        @foreach ($leadlist as $lead)
                         <tr>
-                            <th scope="row">{{ $leadlists->id }}</th>
-                            <td>{{ $leadlists->nome }}</td>
-                            <td>{{ $leadlists->email }}</td>
-                            <td>{{ $leadlists->tell }}</td>
-                            <td>{{ $leadlists->origem }}</td>
-                            <td>{{ $leadlists->created_at }}</td>
+                            
+                            <th scope="row">{{ $lead->id }}</th>
+                            <td>{{ $lead->nome }}</td>
+                            <td>{{ $lead->email }}</td>
+                            <td>{{ $lead->tell }}</td>
+                            <td>{{ $lead->origem }}</td>
+                            <td>{{ $lead->dataCriacao }}</td>
+                           
                         </tr>
                         @endforeach
                     </tbody>

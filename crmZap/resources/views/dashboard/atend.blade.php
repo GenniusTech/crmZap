@@ -6,7 +6,7 @@
             <div class="col-sm-12 col-md-6 col-xl-12">
                 <div class="card-setor h-100 bg-light rounded p-4">
 
-                   @foreach ($atendente as $atend)
+                    @foreach ($atendente as $atend)
                     <div class="d-flex align-items-center p-3 bg-white mb-2">
                         <i class="bi bi-person-circle" style="font-size: 60px;"></i>
                         <div class="w-100 ms-3">
@@ -17,13 +17,14 @@
                                 <a href="#modal-atendente" class="modal-setor-a">
                                     <i class="bi bi-pencil pe-2" style="font-size: 20px;"></i>
                                 </a>
-                                <a href="#modal-atendente-cancelar" class="modal-setor-a">
+                                <a href="#modal-atendente-cancelar" class="modal-setor-a" data-atend-id="{{ $atend->id }}">
                                     <i class="bi bi-trash" style="font-size: 20px;"></i>
                                 </a>
+                                
                             </div>     
                         </div>
                     </div>
-                    @endforeach
+                @endforeach
 
                 </div>
             </div>
@@ -93,12 +94,45 @@
             <h3>Você tem certeza?</h3>
             <p>Tem certeza que deseja deletar esse atendente?</p>
             <div class="d-grid gap-2 d-md-flex justify-content-center">
-                <button class="btn btn-danger me-md-2" type="button">Cancelar</button>
-                <button class="btn btn-success" type="button">Deletar</button>
+                <button class="btn btn-danger me-md-2" type="button" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-success btn-confirmar-exclusao" type="button">Deletar</button>
             </div>
             <a href="#" class="modal__close">&times;</a>
         </div>
     </div>
+
+   <script >
+   
+    $(document).ready(function() {
+        $('.modal-setor-a').click(function() {
+            var id = $(this).data('atend-id');
+            
+            $(".btn-confirmar-exclusao").data("id",id);
+        });
+       
+
+        // Evento de clique no botão de confirmação de exclusão
+        $('.btn-confirmar-exclusao').on('click', function() {
+            var id = $(this).data('id');
+            console.log(id);
+            $.ajax({
+                url: '{{ route('atendDestroy', ':id') }}'.replace(':id', id),
+                type: 'POST',
+                data: {_token: '{{ csrf_token() }}'},
+                success: function(data) {
+                    // Exibição da mensagem de sucesso e recarregamento da página
+                    alert('Atendente e usuário excluídos com sucesso.');
+                    window.location.href='{{ route('atend') }}';
+                },
+                error: function(xhr, status, error) {
+                    // Exibição da mensagem de erro
+                    alert('Ocorreu um erro ao excluir o atendente e usuário.');
+                }
+            });
+        });
+    });
+
+</script>
     
     <div id="modal-criar-atendente" class="modal-setor">
         <div class="modal-content-setor">

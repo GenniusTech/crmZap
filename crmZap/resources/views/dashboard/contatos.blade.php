@@ -29,7 +29,7 @@
                             <th scope="col">{{ $contato->nome }}</th>
                             <th scope="col">{{ $contato->email }}</th>
                             <th scope="col">{{ $contato->tell }}</th>
-                            <th scope="col">{{ $contato->created_at }}</th>
+                            <th scope="col">{{ $contato->dataCriacao }}</th>
                         </tr>
                         @endforeach
                         

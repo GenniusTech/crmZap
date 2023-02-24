@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use App\Services\AtendenteService;
 use App\Services\ContatoService;
 use App\Services\LeadsService;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\Console\Input\Input;
 
@@ -129,6 +131,7 @@ class DashController extends Controller
             $atendente->tell = $request->input('tell');
             $atendente->dep = $request->input('dep');
             $atendente->user_id = $users->id;
+            
             if ($request->input('status') == 1) {
                 $status = 1;
             } else {
@@ -147,13 +150,36 @@ class DashController extends Controller
 
             return redirect('atend')->with('success', 'Usuário cadastrado com sucesso!');
         } catch (\Exception $e) {
-            DB::rollback();
+           
 
             return redirect()->back()->with('error', 'Erro ao cadastrar usuário.');
         }
     }
+
+    public function tendDelete($id)
+    {
+        $atendente = Atendente::find($id);
+        if (!$atendente) {
+            return redirect()->back()->with('error', 'Atendente não encontrado.');
+        }
     
+        $user = User::where('id', $atendente->id)->first();
+        if (!$user) {
+            return redirect()->back()->with('error', 'Usuário não encontrado.');
+        }
     
+        DB::beginTransaction();
+    
+        try {
+            $atendente->delete();
+            $user->delete();
+            DB::commit();
+            return redirect()->back()->with('success', 'Atendente e usuário excluídos com sucesso.');
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Ocorreu um erro ao excluir o atendente e usuário.');
+        }
+    }
     
 
     public function contato(Request $request){
@@ -167,6 +193,9 @@ class DashController extends Controller
         } else if ($contato->tipo === 2) {
             
             $contatos = Contato::where('atendente_id', $user->id)->get();
+        }
+        foreach ($contatos as $contato) {
+            $contato->dataCriacao = Carbon::parse($contato->created_at)->format('d/m/Y H:i:s');
         }
 
         return view('dashboard/contatos',['contatos'=>$contatos,'tipo'=>$tipo]);
@@ -218,6 +247,18 @@ class DashController extends Controller
     
         return redirect('dep')->with('success', 'Contato adicionado com sucesso!');
     }
+
+   public function deleteDep($id)
+    {
+        $dep = Dep::find($id);
+        if ($dep) {
+            $dep->delete();
+            return redirect()->back()->with('success', 'Departamento excluído com sucesso!');
+        } else {
+            return redirect()->back()->with('error', 'Departamento não encontrado.');
+        }
+    }
+
    
     public function lead(){
         $user = Auth::user();
@@ -230,6 +271,9 @@ class DashController extends Controller
         } else if ($contato->tipo === 2) {
             
             $leadlist = Lead::where('atendente_id', $user->id)->get();
+        }
+        foreach ($leadlist as $lead) {
+            $lead->dataCriacao = Carbon::parse($lead->created_at)->format('d/m/Y H:i:s');
         }
 
         return view('dashboard/lead',['leadlist'=>$leadlist,'tipo'=>$tipo]);
@@ -248,14 +292,36 @@ class DashController extends Controller
     
         return redirect('lead')->with('success', 'Contato adicionado com sucesso!');
     }
+
+   
     
 
     public function perfil(){
-        return view('dashboard/perfil');
+        $user = Auth::user();
+        $tipo =[];
+        $contato = Atendente::where('user_id', $user->id)->first();
+        if ($contato->tipo === 1) {
+           
+            $tipo =1;
+        } else if ($contato->tipo === 2) {
+            
+           
+        }
+        return view('dashboard/perfil',['tipo'=>$tipo]);
     }
 
     public function fatura(){
-            return view('dashboard/fatura');
+        $user = Auth::user();
+        $tipo =[];
+        $contato = Atendente::where('user_id', $user->id)->first();
+        if ($contato->tipo === 1) {
+           
+            $tipo =1;
+        } else if ($contato->tipo === 2) {
+            
+           
+        }
+            return view('dashboard/fatura',['tipo'=>$tipo]);
     }
    
     public function logout()
