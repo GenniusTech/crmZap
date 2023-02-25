@@ -24,7 +24,8 @@ class Atendente extends Authenticatable
         'dep',
         'tipo',
         'status',
-        'user_id'
+        'user_id',
+        'ref_id'
 
     ];
 

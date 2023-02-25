@@ -19,6 +19,8 @@
                             <th scope="col">Nome</th>
                             <th scope="col">E-mail</th>
                             <th scope="col">Telefone</th>
+                            <th scope="col">CNPJ / CPF</th>
+                            <th scope="col">Profissão</th>
                             <th scope="col">Dt. inclusão</th>
                         </tr>
                     </thead>
@@ -29,6 +31,8 @@
                             <th scope="col">{{ $contato->nome }}</th>
                             <th scope="col">{{ $contato->email }}</th>
                             <th scope="col">{{ $contato->tell }}</th>
+                            <th scope="col">{{ $contato->empresa }}</th>
+                            <th scope="col">{{ $contato->profissao }}</th>
                             <th scope="col">{{ $contato->dataCriacao }}</th>
                         </tr>
                         @endforeach

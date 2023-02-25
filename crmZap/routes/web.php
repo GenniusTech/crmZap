@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AtendenteController;
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\DepController;
 use App\Http\Controllers\RegisterController;
@@ -38,9 +39,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dep/show/{id}', [DepController::class, 'show'])->name('dep.show');
 
 
-    Route::get('/atend', [DashController::class, 'atend'])->name('atend');
-    Route::post('atend', [DashController::class, 'addAtend'])->name('addAtend');
-    Route::post('/atendentes/{id}',[DashController::class, 'tendDelete'])->name('atendDestroy');
+    Route::get('/atend', [AtendenteController::class, 'atend'])->name('atend');
+    Route::post('atend', [AtendenteController::class, 'addAtend'])->name('addAtend');
+    Route::post('/atendentes/{id}',[AtendenteController::class, 'tendDelete'])->name('atendDestroy');
+    Route::put('/atend/edit/{id}', [AtendenteController::class, 'update'])->name('atend.edit');
+    Route::get('/atend/show/{id}', [AtendenteController::class, 'show'])->name('atend.show');
 
     Route::get('/contato', [DashController::class, 'contato'])->name('contato');
     Route::post('contato',[DashController::class, 'contato_action'])->name('adicionar_contato');

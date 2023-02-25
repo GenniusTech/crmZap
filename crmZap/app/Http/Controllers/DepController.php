@@ -61,7 +61,6 @@ class DepController extends Controller
         return response()->json(['success' => true]);
     }
 
-
     public function show($id) {
         $userLogged = Auth::user();
         $dep = Dep::where('id', $id)->get();

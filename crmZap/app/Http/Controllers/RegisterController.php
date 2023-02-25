@@ -56,6 +56,7 @@ class RegisterController extends Controller
 
     public function register_action(Request $request)
     {   
+        
         $request->validate([
             'nome' => 'required',
             'email' => 'required|email|unique:users',
@@ -77,6 +78,7 @@ class RegisterController extends Controller
                 'tell' => $request->get('tell'),
                 'email' => $request->get('email'),
                 'user_id' => $userCreate->id,
+                'ref_id' => $userCreate->id,
                 'status' => 2,
                 'tipo' => 2
             ];
