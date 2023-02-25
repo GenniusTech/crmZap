@@ -116,7 +116,7 @@ class AtendenteController extends Controller
             return redirect()->back()->with('error', 'Atendente não encontrado.');
         }
     
-        $user = User::where('id', $atendente->id)->first();
+        $user = User::where('id', $atendente->user_id)->first();
         if (!$user) {
             return redirect()->back()->with('error', 'Usuário não encontrado.');
         }
