@@ -39,7 +39,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/dep/edit/{id}', [DepController::class, 'editDep'])->name('dep.edit');
     Route::get('/dep/show/{id}', [DepController::class, 'show'])->name('dep.show');
 
-
     Route::get('/atend', [AtendenteController::class, 'atend'])->name('atend');
     Route::post('atend', [AtendenteController::class, 'addAtend'])->name('addAtend');
     Route::post('/atendentes/{id}',[AtendenteController::class, 'tendDelete'])->name('atendDestroy');
@@ -54,8 +53,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/lead', [DashController::class, 'lead'])->name('lead');
     Route::post('lead', [DashController::class, 'addLead'])->name('addLead');
    
-
     Route::get('/perfil', [PerfilController::class, 'perfil'])->name('perfil');
     Route::post('/alterar-senha', [PerfilController::class, 'alterarSenha'])->name('alterarSenha');
+
 }); 
 
