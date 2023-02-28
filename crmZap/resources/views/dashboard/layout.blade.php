@@ -101,10 +101,9 @@
                             Faturas
                         </a>
                         @endif --}}
-
                         
                         <a href="{{ route('logout') }}" class="nav-item nav-link">
-                            
+                            <i class="fas fa-power-off me-2"></i>
                             Sair
                         </a>
                    

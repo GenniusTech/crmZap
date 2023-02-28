@@ -99,6 +99,4 @@
         <i class="fa fa-plus"></i>
     </a>
 
-   
-
     @endsection
