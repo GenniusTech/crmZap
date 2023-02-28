@@ -33,7 +33,12 @@ class DepController extends Controller
         $contato->nome = $request->input('nome');
         $contato->segmento = $request->input('segmento');
         $contato->resp = $request->input('resp');
-        $contato->status = $request->input('status');
+        if ($request->input('status') == 1) {
+            $status = 1;
+        } else {
+            $status = 2;
+        }
+        $contato ->status = $status;
         $contato->atendente_id = $user->id;
         $contato->save();
             
@@ -54,7 +59,6 @@ class DepController extends Controller
         $dep->segmento = $request->input('segmento');
         $dep->resp = $request->input('resp');
         $dep->status = $request->input('status');
-        // $dep->ativo = $request->input('ativo');
         // $dep->listar = $request->input('listar');
         $dep->save();
 

@@ -223,7 +223,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" name="senha" id="inputSenha" placeholder="Senha">
+                        <input type="password" class="form-control" name="senha" id="inputSenha" placeholder="**********">
                     </div>
                 </div>
                 <label for="formFile" class="form-label">Selecione um ou mais departamentos</label>

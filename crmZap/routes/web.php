@@ -3,6 +3,7 @@
 use App\Http\Controllers\AtendenteController;
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\DepController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -54,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('lead', [DashController::class, 'addLead'])->name('addLead');
    
 
-
-    Route::get('/perfil', [DashController::class, 'perfil'])->name('perfil');
+    Route::get('/perfil', [PerfilController::class, 'perfil'])->name('perfil');
+    Route::post('/alterar-senha', [PerfilController::class, 'alterarSenha'])->name('alterarSenha');
 }); 
 
