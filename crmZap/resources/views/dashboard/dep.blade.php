@@ -58,12 +58,10 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <div class="col-sm-12">
-                    <input type="text" class="form-control" id="status" name="depstatus" placeholder="Status">
-                  </div>
+                 
                 </div>
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="ativo" name="depativo" checked>
+                  <input class="form-check-input" type="checkbox" role="switch" id="status" name="depativo" checked>
                   <label class="form-check-label" for="ativo">Ativo</label>
                 </div>
                 <div class="form-check form-switch">
@@ -102,9 +100,7 @@
                 var nome = $('#modal-editar-setor #nome').val();
                 var segmento = $('#modal-editar-setor #segmento').val();
                 var resp = $('#modal-editar-setor #resp').val();
-                var status = $('#modal-editar-setor #status').val();
-                var ativo = $('#modal-editar-setor #ativo').prop('checked') ? 1 : 0;
-                var listar = $('#modal-editar-setor #listar').prop('checked') ? 1 : 0;
+                var status = $('#modal-editar-setor #status').prop('checked') ? 1 : 2;
                 var token = $('#modal-editar-setor #token').val()
 
                 const dados = {
@@ -112,8 +108,6 @@
                     segmento: segmento,
                     resp: resp,
                     status: status,
-                    ativo: ativo,
-                    listar: listar,
                     token: token
                 };
 
@@ -150,8 +144,6 @@
                                 $("#modal-editar-setor #segmento").val(data.data[0].segmento);
                                 $("#modal-editar-setor #resp").val(data.data[0].resp);
                                 $("#modal-editar-setor #status").val(data.data[0].status);
-                                // $("#ativo").prop("checked", data.ativo);
-                                // $("#listar").prop("checked", data.listar);
                             }
                     });
                 });
@@ -188,13 +180,9 @@
                             <input type="text" class="form-control" name="resp" id="resp" placeholder="Responsável">
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" name="status" id="status" placeholder="status">
-                        </div>
-                    </div>
+                  
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                        <input class="form-check-input" type="checkbox" role="switch" name="status" id="status"  value="1" checked>
                         <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
                     </div>
                     <div class="form-check form-switch">

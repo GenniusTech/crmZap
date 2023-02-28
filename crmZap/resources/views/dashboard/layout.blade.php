@@ -76,12 +76,7 @@
                             Contatos
                         </a>
 
-                        @if ($tipo === 1)
-                        <a href="#" class="nav-item nav-link">
-                            <i class="bi bi-list-check me-2"></i>
-                            Campanhas
-                        </a>
-                        @endif
+                      
 
                         @if ($tipo === 1)
                         <a href="#" class="nav-item nav-link">
@@ -95,12 +90,6 @@
                             Perfil
                         </a>
 
-                        {{-- @if ($tipo === 1)
-                        <a href="{{ Route('fatura') }}" class="nav-item nav-link">
-                            <i class="bi bi-receipt me-2"></i>
-                            Faturas
-                        </a>
-                        @endif --}}
                         
                         <a href="{{ route('logout') }}" class="nav-item nav-link">
                             <i class="fas fa-power-off me-2"></i>
