@@ -14,7 +14,7 @@
                                 <h6 class="mb-0">{{ $atend->nome }}</h6>
                                 <span>{{ $atend->email }}</span>
                                 <p>{{ $atend->dep }}</p>
-                                <a href="#modal-atendente" class="modal-setor-a">
+                                <a href="#modal-atendente" class="open-modal-atendente" data-atend-id="{{ $atend->id }}">
                                     <i class="bi bi-pencil pe-2" style="font-size: 20px;"></i>
                                 </a>
                                 <a href="#modal-atendente-cancelar" class="modal-setor-a" data-atend-id="{{ $atend->id }}">
@@ -36,7 +36,11 @@
         <div class="modal-content-setor">
             <h5>Editar Atendente</h5>
             <hr>
-            <form method="POST" action="">
+            <form>
+                <input type="hidden" name="_token" id="token" value={{ csrf_token() }}>
+                
+                <input type="hidden" class="form-control" id="id" name="id">
+
                 <i class="bi bi-person-circle" style="font-size: 50px;"></i>
                 <div class="row mb-3">
                     <div class="col-sm-12">
@@ -55,28 +59,21 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" name="senha" id="senha" placeholder="Senha">
+                        <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha">
                     </div>
                 </div>
                 <label for="formFile" class="form-label">Selecione um ou mais departamentos</label>
-                <select class="form-select" name="" aria-label="Default select example">
-                    <option selected>Departamentos</option>
-                    <option value="1">Limpa nome indenização</option>
-                    <option value="2">Voo indenizado</option>
-                    <option value="3">Limpa nome</option>
-                    <option value="4">Score</option>
+                <select class="form-select" name="dep" id="dep" aria-label="Default select example">
+                    @foreach ($deplist as $dep)
+                        <option value="{{ $dep->nome }}">{{ $dep->nome }}</option>
+                    @endforeach
                 </select>
                 <div class="form-check form-switch pt-2">
-                    <input
-                        class="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        id="flexSwitchCheckDefault"
-                    >
+                    <input class="form-check-input" type="checkbox" role="switch" id="tipo" name="tipo" value="1">
                     <label class="form-check-label" for="flexSwitchCheckDefault">Administrador</label>
                 </div>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                    <input class="form-check-input" type="checkbox" role="switch" id="status"  name="status" value="1">
                     <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -102,35 +99,103 @@
     </div>
 
    <script >
-   
-    $(document).ready(function() {
-        $('.modal-setor-a').click(function() {
-            var id = $(this).data('atend-id');
-            
-            $(".btn-confirmar-exclusao").data("id",id);
-        });
+            $('#modal-atendente form').submit(function(e) {
+                e.preventDefault(); // evita que o formulário seja enviado por submit padrão
+
+                // captura os dados do formulário
+                var depID =$('#modal-atendente #id').val();
+                var nome = $('#modal-atendente #nome').val();
+                var tell = $('#modal-atendente #tell').val();
+                var dep = $('#modal-atendente #dep').val();
+                var email = $('#modal-atendente #email').val();
+                var senha = $('#modal-atendente #senha').val();
+                var tipo = $('#modal-atendente #tipo').prop('checked') ? 1 : 2;
+                var status = $('#modal-atendente #status').prop('checked') ? 1 : 2;
+                var token = $('#modal-atendente #token').val()
+
+                const dados = {
+                    nome: nome,
+                    tell: tell,
+                    email: email,
+                    senha: senha,
+                    dep: dep,
+                    tipo: tipo,
+                    status: status,
+                    token: token
+                };
+
+                // envia a requisição AJAX
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': token
+                    },
+                    url: '/atend/edit/'+depID,
+                    method: 'PUT',
+                    data: dados,
+                    success: function(data) {
+                        alert("Atendente atualizado com sucesso!");
+                        window.location.href = "{{ route('atend') }}";
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Falha ao editar o Atendente!");
+                    }
+                });
+            });
+            $(document).ready(function() {
+                $('.open-modal-atendente').click(function() {
+                    var depID = $(this).data("atend-id");
+                        $.ajax({
+                            url: '/atend/show/'+depID,
+                            method: "GET",
+                            success: function(data) {
+                                console.log(data.data[0].dep);
+                                // preenche os campos do formulário no modal com as informações do departamento
+                                console.log(data.data[0]);
+                                $("#modal-atendente #id").val(depID);
+                                $("#modal-atendente #nome").val(data.data[0].nome);
+                                $("#modal-atendente #tell").val(data.data[0].tell);
+                                $("#modal-atendente #email").val(data.data[0].email);
+                                $("#modal-atendente #dep").val(data.data[0].dep);
+                                
+                                if (data.data[0].tipo === 1) {
+                                    $("#modal-atendente #tipo").prop("checked", data.data[0].tipo);
+                                }
+
+                                if (data.data[0].status === 1) {
+                                    $("#modal-atendente #status").prop("checked", data.data[0].status);
+                                }
+                                // $("#modal-atendente #status").val(data.data[0].status);
+                            }
+                        });
+                });
+
+                $('.modal-setor-a').click(function() {
+                    var id = $(this).data('atend-id');
+                    
+                    $(".btn-confirmar-exclusao").data("id",id);
+                });
        
 
-        // Evento de clique no botão de confirmação de exclusão
-        $('.btn-confirmar-exclusao').on('click', function() {
-            var id = $(this).data('id');
-            console.log(id);
-            $.ajax({
-                url: '{{ route('atendDestroy', ':id') }}'.replace(':id', id),
-                type: 'POST',
-                data: {_token: '{{ csrf_token() }}'},
-                success: function(data) {
-                    // Exibição da mensagem de sucesso e recarregamento da página
-                    alert('Atendente e usuário excluídos com sucesso.');
-                    window.location.href='{{ route('atend') }}';
-                },
-                error: function(xhr, status, error) {
-                    // Exibição da mensagem de erro
-                    alert('Ocorreu um erro ao excluir o atendente e usuário.');
-                }
+                // Evento de clique no botão de confirmação de exclusão
+                $('.btn-confirmar-exclusao').on('click', function() {
+                    var id = $(this).data('id');
+                    console.log(id);
+                    $.ajax({
+                        url: '{{ route('atendDestroy', ':id') }}'.replace(':id', id),
+                        type: 'POST',
+                        data: {_token: '{{ csrf_token() }}'},
+                        success: function(data) {
+                            // Exibição da mensagem de sucesso e recarregamento da página
+                            alert('Atendente e usuário excluídos com sucesso.');
+                            window.location.href='{{ route('atend') }}';
+                        },
+                        error: function(xhr, status, error) {
+                            // Exibição da mensagem de erro
+                            alert('Ocorreu um erro ao excluir o atendente e usuário.');
+                        }
+                    });
+                });
             });
-        });
-    });
 
 </script>
     
@@ -158,7 +223,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" name="password" id="inputSenha" placeholder="Senha">
+                        <input type="text" class="form-control" name="senha" id="inputSenha" placeholder="Senha">
                     </div>
                 </div>
                 <label for="formFile" class="form-label">Selecione um ou mais departamentos</label>

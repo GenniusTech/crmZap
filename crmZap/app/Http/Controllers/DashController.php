@@ -97,91 +97,6 @@ class DashController extends Controller
         
     }
 
-   
-    public function atend() {
-        $user = Auth::user();
-        $atend = Atendente::where('user_id', $user->id)->first();
-        $tipo =[];
-        if ($atend->tipo === 1) {
-            $deplist = Dep::all();
-            $atendente = Atendente::all();
-            $tipo =1;
-        } else if ($atend->tipo === 2) {
-            $atendente  = Atendente::where('user_id', $user->id)->get();
-            $deplist = Dep::where('atendente_id', $user->id)->get();
-        }
-        return view('dashboard/atend', ['atendente' => $atendente,'tipo'=>$tipo,'deplist'=>$deplist]);
-    }
-    public function addAtend(Request $request){
-        DB::beginTransaction();
-        
-
-        try {
-            // Cria o novo usuário na tabela users
-            $user = new User();
-            $user->email = $request->input('email');
-            $user->nome = $request->input('nome');
-            $user->password = Hash::make($request->input('senha'));
-            $user->save();
-            $users = Auth::user();
-            // Cria o novo atendente na tabela crm_atendentes
-            $atendente = new Atendente();
-            $atendente->nome = $request->input('nome');
-            $atendente->email = $request->input('email');
-            $atendente->tell = $request->input('tell');
-            $atendente->dep = $request->input('dep');
-            $atendente->user_id = $users->id;
-            
-            if ($request->input('status') == 1) {
-                $status = 1;
-            } else {
-                $status = 2;
-            }
-            $atendente ->status = $status;
-            if ($request->input('tipo') == 1) {
-                $tipo = 1;
-            } else {
-                $tipo = 2;
-            }
-            $atendente ->tipo = $tipo;
-            $atendente->save();
-
-            DB::commit();
-
-            return redirect('atend')->with('success', 'Usuário cadastrado com sucesso!');
-        } catch (\Exception $e) {
-           
-
-            return redirect()->back()->with('error', 'Erro ao cadastrar usuário.');
-        }
-    }
-
-    public function tendDelete($id)
-    {
-        $atendente = Atendente::find($id);
-        if (!$atendente) {
-            return redirect()->back()->with('error', 'Atendente não encontrado.');
-        }
-    
-        $user = User::where('id', $atendente->id)->first();
-        if (!$user) {
-            return redirect()->back()->with('error', 'Usuário não encontrado.');
-        }
-    
-        DB::beginTransaction();
-    
-        try {
-            $atendente->delete();
-            $user->delete();
-            DB::commit();
-            return redirect()->back()->with('success', 'Atendente e usuário excluídos com sucesso.');
-        } catch (Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('error', 'Ocorreu um erro ao excluir o atendente e usuário.');
-        }
-    }
-    
-
     public function contato(Request $request){
 
         $user = Auth::user();
@@ -219,45 +134,7 @@ class DashController extends Controller
         return redirect('contato')->with('success', 'Contato adicionado com sucesso!');
     }
 
-    public function dep(Request $request){
-        $user = Auth::user();
-        $deplist = [];
-        $tipo =[];
-        $contato = Atendente::where('user_id', $user->id)->first();
-        if ($contato->tipo === 1) {
-            $deplist = Dep::all();
-            $tipo =1;
-        } else if ($contato->tipo === 2) {
-            
-            $deplist = Dep::where('atendente_id', $user->id)->get();
-        }
-        
-        return view('dashboard/dep',['deplist' =>$deplist,'tipo'=>$tipo]);
-    }
-    public function addDep(Request $request){
-        $contato='não definido';
-        $user = Auth::user();
-        $contato = new Dep();
-        $contato->nome = $request->input('nome');
-        $contato->segmento = $request->input('segmento');
-        $contato->resp = $request->input('resp');
-        $contato->status = $request->input('status');
-        $contato->atendente_id = $user->id;
-        $contato->save();
     
-        return redirect('dep')->with('success', 'Contato adicionado com sucesso!');
-    }
-
-   public function deleteDep($id)
-    {
-        $dep = Dep::find($id);
-        if ($dep) {
-            $dep->delete();
-            return redirect()->back()->with('success', 'Departamento excluído com sucesso!');
-        } else {
-            return redirect()->back()->with('error', 'Departamento não encontrado.');
-        }
-    }
 
    
     public function lead(){

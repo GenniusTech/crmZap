@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 255);
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('ref_id')->nullable();
             $table->string('email', 255);
             $table->string('tell', 255);
             $table->string('dep')->nullable();
