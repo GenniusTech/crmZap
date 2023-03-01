@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AtendenteController;
+use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\DepController;
+use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +30,9 @@ Route::post('/', [RegisterController::class, 'login_action'])->name('login_actio
 
 Route::get('/signup', [RegisterController::class, 'register'])->name('register');
 Route::post('/signup', [RegisterController::class, 'register_action'])->name('register_action');
+
 Route::get('/forgout', [RegisterController::class, 'forgout'])->name('forgout');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/painel', [DashController::class, 'dashboard'])->name('dashboard');
@@ -46,16 +51,16 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/atend/edit/{id}', [AtendenteController::class, 'update'])->name('atend.edit');
     Route::get('/atend/show/{id}', [AtendenteController::class, 'show'])->name('atend.show');
 
-    Route::get('/contato', [DashController::class, 'contato'])->name('contato');
-    Route::post('contato',[DashController::class, 'contato_action'])->name('adicionar_contato');
+    Route::get('/contato', [ContatoController::class, 'contato'])->name('contato');
+    Route::post('contato',[ContatoController::class, 'contato_action'])->name('adicionar_contato');
 
-    Route::get('/fatura', [DashController::class, 'fatura'])->name('fatura');
-
-    Route::get('/lead', [DashController::class, 'lead'])->name('lead');
-    Route::post('lead', [DashController::class, 'addLead'])->name('addLead');
+    Route::get('/lead', [LeadsController::class, 'lead'])->name('lead');
+    Route::post('lead', [LeadsController::class, 'addLead'])->name('addLead');
    
 
     Route::get('/perfil', [PerfilController::class, 'perfil'])->name('perfil');
     Route::post('/alterar-senha', [PerfilController::class, 'alterarSenha'])->name('alterarSenha');
+
+    Route::get('/avaliacao', [AvaliacaoController::class, 'avaliacao'])->name('avaliacao');
 }); 
 

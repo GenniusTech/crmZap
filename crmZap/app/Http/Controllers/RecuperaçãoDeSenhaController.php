@@ -12,5 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class AtendenteController extends Controller
 {   
-    
+    public function sendRegisterMail(){
+        
+    }   
 }

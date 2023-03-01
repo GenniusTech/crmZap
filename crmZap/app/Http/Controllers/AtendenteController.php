@@ -100,12 +100,15 @@ class AtendenteController extends Controller
         $dep->tipo = $request->input('tipo');
         $dep->status = $request->input('status');
         $password = $request->input('senha');
-
+        $user->nome = $request->input('nome');
+        $user->email = $request->input('email');
         if (!empty($password)) {
             $user->password = bcrypt($password);
             $user->save();
         }
+        $user->save();
         $dep->save();
+
         return response()->json(['success' => true]);
     }
 

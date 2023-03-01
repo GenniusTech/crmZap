@@ -50,7 +50,8 @@ class Atendente extends Authenticatable
 
     public function leads()
     {
-        return $this->hasMany(Lead::class);
+       // return $this->hasMany(Lead::class);
+        return $this->hasMany(Lead::class, 'atendente_id', 'user_id');
     }
     public function dep()
     {

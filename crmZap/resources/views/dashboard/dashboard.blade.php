@@ -55,7 +55,7 @@
                     <h5 class="mb-1">{{ $atendente->nome }}</h5>
                     <p class="mb-0">
                         <i class="fa fa-star"></i>
-                        {{ $atendente->leads->count() }} conversas em andamento
+                        {{ $atendente->leads->count()}} conversas em andamento
                     </p>
                 </div>
             @endforeach

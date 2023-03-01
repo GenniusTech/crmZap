@@ -65,7 +65,7 @@
                         @endif
 
                         @if ($tipo === 1)
-                        <a href="#" class="nav-item nav-link">
+                        <a href="{{ Route('avaliacao') }}" class="nav-item nav-link">
                             <i class="fa fa-chart-bar me-2"></i>
                             Avaliações
                         </a>

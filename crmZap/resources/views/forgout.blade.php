@@ -28,7 +28,7 @@
                         </button>
                     </div>
                     <div class="text-center p-t-12">
-                        <a class="txt1" href="signin.html" target="_blank">
+                        <a class="txt1" href="{{ route('login')}}" target="_blank">
                             Acessar conta
                         </a>
                     </div>
