@@ -80,126 +80,24 @@ class DashController extends Controller
         if ($atendente->tipo === 1) {
             $this->contatos = $this->contatoService->getAll();
             $this->contactsCount = $this->contatoService->getAll()->count();
-            $this->leadsCount = $this->leadsService->getLeadsByStatus('3')->count();
-            $this->leadsStatusCount = $this->leadsService->getLeadsByStatus('1')->count();
+            $this->leadsCount = $this->leadsService->getLeadsByStatus('1')->count();
+            $this->leadsStatusCount = $this->leadsService->getLeadsByStatus('3')->count();
             $this->tema = 'Atendentes';
             $this->tipo =1;
             $this->atendentes = Atendente::with(['leads'])->get();
         } else if ($atendente->tipo === 2) {
-            $contacts = $this->contatoService->getByAtendenteId($atendente->id);
-            $this->contatos = $contacts;//dd($this->contatos);
+            $contacts = $this->contatoService->getByAtendenteId($atendente->user_id);
+            $this->contatos = $contacts;
             $this->contactsCount = $contacts === null ? 0 : $contacts->count();
-            $this->leadsCount = $this->leadsService->getLeadByStatusAndAtendenteId('3',$atendente->id)->count();
-            $this->leadsStatusCount = $this->leadsService->getLeadByStatusAndAtendenteId('1',$atendente->id)->count(); 
+            $this->leadsCount = $this->leadsService->getLeadByStatusAndAtendenteId('1',$atendente->user_id)->count();
+            $this->leadsStatusCount = $this->leadsService->getLeadByStatusAndAtendenteId('3',$atendente->user_id)->count(); 
             $this->tema = 'Equipe';
             $this->tipo =2;
         }
         
     }
 
-    public function contato(Request $request){
-
-        $user = Auth::user();
-        $contato = Atendente::where('user_id', $user->id)->first();
-        $tipo =[];
-        if ($contato->tipo === 1) {
-            $contatos = Contato::all();
-            $tipo = 1;
-        } else if ($contato->tipo === 2) {
-            
-            $contatos = Contato::where('atendente_id', $user->id)->get();
-        }
-        foreach ($contatos as $contato) {
-            $contato->dataCriacao = Carbon::parse($contato->created_at)->format('d/m/Y H:i:s');
-        }
-
-        return view('dashboard/contatos',['contatos'=>$contatos,'tipo'=>$tipo]);
-    }
-    public function contato_action (Request $request){
-        $contato='não definido';
-        $user = Auth::user();
-        $contato = new Contato();
-        $contato->nome = $request->input('nome') . ' ' . $request->input('sobrenome');
-        $contato->email = $request->input('email');
-        $contato->tell = $request->input('tell');
-        $contato->empresa = $request->input('empresa');
-        $contato->profissao = $request->input('profissao');
-        $contato->instagram = $request->input('instagram');
-        $contato->facebook = $request->input('facebook');
-
-        $contato->atendente_id = $user->id;
-    
-        $contato->save();
-    
-        return redirect('contato')->with('success', 'Contato adicionado com sucesso!');
-    }
-
-    
-
    
-    public function lead(){
-        $user = Auth::user();
-        $leadlist = [];
-        $tipo =[];
-        $contato = Atendente::where('user_id', $user->id)->first();
-        if ($contato->tipo === 1) {
-            $leadlist = Lead::all();
-            $tipo =1;
-        } else if ($contato->tipo === 2) {
-            
-            $leadlist = Lead::where('atendente_id', $user->id)->get();
-        }
-        foreach ($leadlist as $lead) {
-            $lead->dataCriacao = Carbon::parse($lead->created_at)->format('d/m/Y H:i:s');
-        }
-
-        return view('dashboard/lead',['leadlist'=>$leadlist,'tipo'=>$tipo]);
-    }
-    public function addLead(Request $request){
-        $contato='não definido';
-        $user = Auth::user();
-        $contato = new Lead();
-        $contato->nome = $request->input('nome');
-        $contato->email = $request->input('email');
-        $contato->tell = $request->input('tell');
-        $contato->origem = $request->input('origem');
-        $contato->status = 1;
-        $contato->atendente_id = $user->id;
-        $contato->save();
-    
-        return redirect('lead')->with('success', 'Contato adicionado com sucesso!');
-    }
-
-   
-    
-
-    public function perfil(){
-        $user = Auth::user();
-        $tipo =[];
-        $contato = Atendente::where('user_id', $user->id)->first();
-        if ($contato->tipo === 1) {
-           
-            $tipo =1;
-        } else if ($contato->tipo === 2) {
-            
-           
-        }
-        return view('dashboard/perfil',['tipo'=>$tipo]);
-    }
-
-    public function fatura(){
-        $user = Auth::user();
-        $tipo =[];
-        $contato = Atendente::where('user_id', $user->id)->first();
-        if ($contato->tipo === 1) {
-           
-            $tipo =1;
-        } else if ($contato->tipo === 2) {
-            
-           
-        }
-            return view('dashboard/fatura',['tipo'=>$tipo]);
-    }
    
     public function logout()
     {
