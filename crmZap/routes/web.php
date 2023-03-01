@@ -60,5 +60,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/alterar-senha', [PerfilController::class, 'alterarSenha'])->name('alterarSenha');
 
     Route::get('/avaliacao', [AvaliacaoController::class, 'avaliacao'])->name('avaliacao');
+
+    Route::get('forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('reset-password/{token}', 'App\Http\Controllers\Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('reset-password', 'App\Http\Controllers\Auth\ResetPasswordController@reset')->name('password.update');
+
 }); 
 
