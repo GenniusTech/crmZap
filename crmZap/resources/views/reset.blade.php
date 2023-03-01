@@ -8,10 +8,17 @@
                 </div>
                 <form class="login-form">
                     <span class="login-form-title">
-                        Esqueci minha senha
+                        Atualize suas credenciais
                     </span>
                     <div class="wrap-input">
-                        <input class="input-login" type="text" name="email" placeholder="Email">
+                        <input class="input-login" type="text" name="newpassword" placeholder="Nova senha">
+                        <span class="focus-input"></span>
+                        <span class="symbol-input">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="wrap-input">
+                        <input class="input-login" type="text" name="password" placeholder="Confirmar senha">
                         <span class="focus-input"></span>
                         <span class="symbol-input">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -19,11 +26,11 @@
                     </div>
                     <div class="container-form-btn">
                         <button class="login-form-btn">
-                            Nova senha
+                            Atualizar
                         </button>
                     </div>
                     <div class="text-center p-t-12">
-                        <a class="txt1" href="{{ route('login')}}" target="_blank">
+                        <a class="txt1" href="signin.html" target="_blank">
                             Acessar conta
                         </a>
                     </div>
