@@ -26,12 +26,6 @@ class RegisterController extends Controller
        
     }
 
-    public function forgout(Request $request)
-    {
-        return view('forgout');
-       
-    }
-
     public function login_action(Request $request){
         
         $credentials = $request->only(['email', 'senha']);

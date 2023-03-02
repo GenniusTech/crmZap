@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AtendenteController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DashController;
@@ -31,8 +32,11 @@ Route::post('/', [RegisterController::class, 'login_action'])->name('login_actio
 Route::get('/signup', [RegisterController::class, 'register'])->name('register');
 Route::post('/signup', [RegisterController::class, 'register_action'])->name('register_action');
 
-Route::get('/forgout', [RegisterController::class, 'forgout'])->name('forgout');
-
+Route::get('/forgout', [ForgotPasswordController::class, 'forgout'])->name('forgout');
+Route::get('/resetPassword', [ForgotPasswordController::class, 'resetPassword'])->name('resetPassword');
+Route::post('/sendMail', [ForgotPasswordController::class, 'sendMail'])->name('sendMail');
+Route::get('/newPass/{hash}', [ForgotPasswordController::class, 'newPass'])->name('newPass');
+Route::post('/updatePass', [ForgotPasswordController::class, 'updatePass'] )->name('updatePass');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/painel', [DashController::class, 'dashboard'])->name('dashboard');
@@ -61,10 +65,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/avaliacao', [AvaliacaoController::class, 'avaliacao'])->name('avaliacao');
 
-    Route::get('forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-    Route::post('forgot-password', 'App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-    Route::get('reset-password/{token}', 'App\Http\Controllers\Auth\ResetPasswordController@showResetForm')->name('password.reset');
-    Route::post('reset-password', 'App\Http\Controllers\Auth\ResetPasswordController@reset')->name('password.update');
+    
 
 }); 
 

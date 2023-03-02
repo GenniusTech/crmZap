@@ -3,6 +3,14 @@
     <div class="container-fluid pt-4 px-4">
         <div class="row g-4">
             <div class="col-sm-12 col-md-12 col-xl-12">
+               
+                @if( session('success') !== null)
+                    <div style="background-color:chartreuse; color:black;">{{  session('success') }}</div>
+                @else
+                 
+                <div style="background-color:red; color:white;">{{  session('error') }}</div>
+                 @endif
+                
                 <div class="h-100 bg-light rounded p-4">
                     <div class="d-flex align-items-center border-bottom py-3">
                         <i class="bi bi-person-circle" style="font-size: 40px;"></i>
