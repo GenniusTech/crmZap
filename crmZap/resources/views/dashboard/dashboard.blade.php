@@ -67,7 +67,7 @@
         <div class="bg-light rounded h-100 p-4">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <h5 class="mb-4">Whatsapp</h5>
-                <a href="#" class="link-atendente">Ir para Whatsapp<i class="fa fa-arrow-right ps-1"></i></a>
+                <a href="{{ Route('contato') }}" class="link-atendente">Ir para Whatsapp<i class="fa fa-arrow-right ps-1"></i></a>
             </div>
             <div class="owl-carousel whatsapp-carousel">
                 @foreach ($contatos as $contato)

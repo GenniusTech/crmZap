@@ -6,12 +6,20 @@
                 <div class="login-pic">
                     <img src="{{ asset('home/logo.png') }}" alt="logo grupo sollution">
                 </div>
-                <form class="login-form">
+                <form class="login-form" action="{{ route('sendMail') }}" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    
                     <span class="login-form-title">
                         Esqueci minha senha
                     </span>
+
+                    @if(session('errors') !== null)
+                        <div style="background-color:lightgreen; color:rgb(8, 4, 4);text-align: center; border-radius:5px;">
+                            {{session('errors')->first('message');}}
+                        </div><br>
+                    @endif
                     <div class="wrap-input">
-                        <input class="input-login" type="text" name="email" placeholder="Email">
+                        <input class="input-login" type="text" name="email" autocomplete="off" placeholder="Email">
                         <span class="focus-input"></span>
                         <span class="symbol-input">
                             <i class="fa fa-envelope" aria-hidden="true"></i>

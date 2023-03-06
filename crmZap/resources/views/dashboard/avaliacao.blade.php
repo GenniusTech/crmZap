@@ -27,78 +27,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($avaliacao as $avaliacoes)
                             <tr>
-                                <th scope="row">1</th>
-                                <td>48161654</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Aline</td>
-                                <td>Whatsapp</td>
-                                <td>Lorem Ipsum</td>
-                                <td>10/02/2023</td>
+                                <th scope="row">{{ $avaliacoes->id }}</th>
+                                <td>{{ $avaliacoes->chatId }}</td>
+                                <td>{{ $avaliacoes->avaliação }}</td>
+                                <td>{{ $avaliacoes->atendente }}</td>
+                                <td>{{ $avaliacoes->origemAtendimento }}</td>
+                                <td>{{ $avaliacoes->tipoAvaliação }}</td>
+                                <td>{{ $avaliacoes->dataCriacao }}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>48161654</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Aline</td>
-                                <td>Whatsapp</td>
-                                <td>Lorem Ipsum</td>
-                                <td>10/02/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>48161654</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Aline</td>
-                                <td>Whatsapp</td>
-                                <td>Lorem Ipsum</td>
-                                <td>10/02/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>48161654</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Aline</td>
-                                <td>Whatsapp</td>
-                                <td>Lorem Ipsum</td>
-                                <td>10/02/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>48161654</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Aline</td>
-                                <td>Whatsapp</td>
-                                <td>Lorem Ipsum</td>
-                                <td>10/02/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">6</th>
-                                <td>48161654</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Aline</td>
-                                <td>Whatsapp</td>
-                                <td>Lorem Ipsum</td>
-                                <td>10/02/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">7</th>
-                                <td>48161654</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Aline</td>
-                                <td>Whatsapp</td>
-                                <td>Lorem Ipsum</td>
-                                <td>10/02/2023</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">8</th>
-                                <td>48161654</td>
-                                <td>Lorem Ipsum</td>
-                                <td>Aline</td>
-                                <td>Whatsapp</td>
-                                <td>Lorem Ipsum</td>
-                                <td>10/02/2023</td>
-                            </tr>
+                            @endforeach
+                          
                         </tbody>
                     </table>
                 </div>

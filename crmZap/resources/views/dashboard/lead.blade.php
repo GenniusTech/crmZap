@@ -54,21 +54,21 @@
                 @csrf
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" name="nome" class="form-control" placeholder="Nome">
+                        <input type="text" name="nome" class="form-control" placeholder="Nome" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="email" name="email" class="form-control" placeholder="E-mail">
+                        <input type="email" name="email" class="form-control" placeholder="E-mail" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" name="tell" class="form-control" placeholder="Telefone">
+                        <input type="text" name="tell" class="form-control" placeholder="Telefone" required>
                     </div>
                 </div>
                 <label for="formFile" class="form-label">Selecione a origem:</label>
-                <select class="form-select" name="origem" aria-label="Default select example">
+                <select class="form-select" name="origem" aria-label="Default select example" required>
                     <option selected>WhatsApp</option>
                 </select>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-4">

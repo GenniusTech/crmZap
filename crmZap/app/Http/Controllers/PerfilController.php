@@ -59,13 +59,13 @@ class PerfilController extends Controller
                     $user->save();
                     return redirect('perfil')->with('success', 'Senha Alterada com Sucesso.');
                 } else {
-                    return response()->json(['success' => false, 'error' => 'A nova senha e a confirmação de senha não correspondem.']);
+                    return redirect('perfil')->with('error', 'A nova senha e a confirmação de senha não correspondem.');
                 }
             } else {
-                return response()->json(['success' => false, 'error' => 'A senha atual está incorreta.']);
+                return redirect('perfil')->with('error','A senha atual está incorreta.');
             }
         } else {
-            return response()->json(['success' => false, 'error' => 'A senha atual não foi fornecida.']);
+            return redirect('perfil')->with('error','A senha atual não foi fornecida.');
         }
     }
     
