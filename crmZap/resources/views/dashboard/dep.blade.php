@@ -167,17 +167,17 @@
                     @csrf
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
+                            <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" name="segmento" id="segmento " placeholder="Segmento">
+                            <input type="text" class="form-control" name="segmento" id="segmento " placeholder="Segmento" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" name="resp" id="resp" placeholder="Responsável">
+                            <input type="text" class="form-control" name="resp" id="resp" placeholder="Responsável" required>
                         </div>
                     </div>
                   

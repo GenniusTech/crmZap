@@ -65,7 +65,7 @@ class ForgotPasswordController extends Controller
                     Mail::to($email)->send(new RegisterEmail($testMailData));
                 }
 
-                return redirect()->route('login')->with(['message' => 'E-mail de recuperação enviado!']);
+                return redirect()->back()->withErrors(['message' => 'E-mail de recuperação enviado!']);
             }
         } catch(\Exception $e) {
             return redirect()->back()->withErrors(['message' => 'Ocorreu um problema! Tente novamente mais tarde!']);

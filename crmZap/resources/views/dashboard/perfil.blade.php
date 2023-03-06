@@ -5,10 +5,10 @@
             <div class="col-sm-12 col-md-12 col-xl-12">
                
                 @if( session('success') !== null)
-                    <div style="background-color:chartreuse; color:black;">{{  session('success') }}</div>
+                    <div style="background-color:lightgreen; color:rgb(8, 4, 4);text-align: center; border-radius:5px;">{{  session('success') }}</div>
                 @else
                  
-                <div style="background-color:red; color:white;">{{  session('error') }}</div>
+                    <div style="background-color: rgb(227, 112, 112); color:white;text-align: center; border-radius:5px;">{{  session('error') }}</div>
                  @endif
                 
                 <div class="h-100 bg-light rounded p-4">

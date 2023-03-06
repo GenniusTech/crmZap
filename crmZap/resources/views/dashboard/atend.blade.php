@@ -208,22 +208,22 @@
                 <i class="bi bi-person-circle" style="font-size: 50px;"></i>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" name="nome" id="inputName3" placeholder="Nome">
+                        <input type="text" class="form-control" name="nome" id="inputName3" placeholder="Nome" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="number" class="form-control" name="tell" id="inputTelefone" placeholder="Telefone">
+                        <input type="number" class="form-control" name="tell" id="inputTelefone" placeholder="Telefone" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="email" class="form-control" name="email" id="inputEmail" placeholder="E-mail">
+                        <input type="email" class="form-control" name="email" id="inputEmail" placeholder="E-mail" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="password" class="form-control" name="senha" id="inputSenha" placeholder="**********">
+                        <input type="password" class="form-control" name="senha" id="inputSenha" placeholder="**********" required>
                     </div>
                 </div>
                 <label for="formFile" class="form-label">Selecione um ou mais departamentos</label>

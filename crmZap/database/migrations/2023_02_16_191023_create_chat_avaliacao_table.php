@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
+       
         Schema::create('chat_avaliacao', function (Blueprint $table) {
             $table->id();
-            $table->string('cliente',255);
+            $table->string('chatId',255);
+            $table->string('avaliação',255);
             $table->string('atendente',255);
-            $table->string('nota',255);
-            $table->string('resumo',255);
+            $table->string('origemAtendimento',255);
+            $table->string('tipoAvaliação',255);
             $table->timestamps();
         });
     }

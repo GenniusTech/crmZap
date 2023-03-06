@@ -52,38 +52,38 @@
                 <i class="bi bi-person-circle" style="font-size: 50px;"></i>
                 <div class="row mb-3">
                     <div class="col">
-                        <input type="text" id="nome" name="nome" class="form-control" placeholder="Primeiro nome">
+                        <input type="text" id="nome" name="nome" class="form-control" placeholder="Primeiro nome" required>
                     </div>
                     <div class="col">
-                        <input type="text" id="sobrenome" name="sobrenome" class="form-control" placeholder="Último nome">
+                        <input type="text" id="sobrenome" name="sobrenome" class="form-control" placeholder="Último nome" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="email" id="email" name="email" class="form-control" placeholder="E-mail">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" id="tell" name="tell" class="form-control"placeholder="Telefone">
+                        <input type="text" id="tell" name="tell" class="form-control"placeholder="Telefone" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" id="empresa" name="empresa" class="form-control"placeholder="CNPJ ou CPF">
+                        <input type="text" id="empresa" name="empresa" class="form-control"placeholder="CNPJ ou CPF" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-12">
-                        <input type="text" id="profissao" name="profissao" class="form-control"placeholder="Profissão">
+                        <input type="text" id="profissao" name="profissao" class="form-control"placeholder="Profissão" required>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <input type="text" id="facebook" name="facebook" class="form-control" placeholder="Facebook">
+                        <input type="text" id="facebook" name="facebook" class="form-control" placeholder="Facebook" required>
                     </div>
                     <div class="col">
-                        <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Instagram">
+                        <input type="text" id="instagram" name="instagram" class="form-control" placeholder="Instagram" required>
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
